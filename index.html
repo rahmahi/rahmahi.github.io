@@ -6,6 +6,38 @@
     <title>Mahbub Rahaman</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #fafafa;
+            --container-bg: #ffffff;
+            --text-color: #333333;
+            --text-secondary: #555555;
+            --text-muted: #7f8c8d;
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --card-bg: #f8f9fa;
+            --border-color: #eeeeee;
+            --shadow: rgba(0,0,0,0.1);
+            --shadow-hover: rgba(0,0,0,0.15);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --container-bg: #2d2d2d;
+            --text-color: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-muted: #8a8a8a;
+            --primary-color: #4fa8d8;
+            --secondary-color: #5dade2;
+            --accent-color: #e67e22;
+            --success-color: #2ecc71;
+            --card-bg: #3a3a3a;
+            --border-color: #404040;
+            --shadow: rgba(0,0,0,0.3);
+            --shadow-hover: rgba(0,0,0,0.4);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,56 +47,80 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f5f5dc; /* beige */
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px var(--shadow-hover);
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 40px 20px;
-            background-color: #fffbe6; /* light beige */
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            background-color: var(--container-bg);
+            box-shadow: 0 0 20px var(--shadow);
             min-height: 100vh;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .header {
             text-align: center;
             margin-bottom: 40px;
             padding-bottom: 30px;
-            border-bottom: 2px solid #eee;
+            border-bottom: 2px solid var(--border-color);
         }
 
         .profile-img {
             width: 180px;
             height: 180px;
-            border-radius: 50%;
-            background: #deb887; /* solid beige/brown */
+            border-radius: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             margin: 0 auto 25px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 60px;
             color: white;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px var(--shadow-hover);
         }
 
         .name {
             font-size: 2.5em;
             font-weight: 700;
-            color: #2c3e50;
+            color: var(--secondary-color);
             margin-bottom: 10px;
         }
 
         .title {
             font-size: 1.3em;
-            color: #7f8c8d;
+            color: var(--text-muted);
             margin-bottom: 15px;
         }
 
         .affiliation {
             font-size: 1.1em;
-            color: #34495e;
+            color: var(--text-secondary);
             margin-bottom: 20px;
         }
 
@@ -76,31 +132,79 @@
         }
 
         .contact-links a {
-            color: #8b5c2a;
+            color: var(--primary-color);
             text-decoration: none;
             font-size: 1.1em;
             padding: 8px 15px;
-            border-radius: 25px;
-            background-color: #f5f5dc;
+            border-radius: 0;
+            background-color: var(--card-bg);
             transition: all 0.3s ease;
         }
 
         .contact-links a:hover {
-            background-color: #deb887;
+            background-color: var(--primary-color);
             color: white;
             transform: translateY(-2px);
         }
 
-        .section {
+        .navigation {
             margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            font-weight: 500;
+            border-radius: 0;
+        }
+
+        .nav-tab:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .section-title {
             font-size: 1.8em;
-            color: #2c3e50;
+            color: var(--secondary-color);
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 3px solid #deb887;
+            border-bottom: 3px solid var(--primary-color);
             position: relative;
         }
 
@@ -111,13 +215,13 @@
             left: 0;
             width: 50px;
             height: 3px;
-            background-color: #b8860b;
+            background-color: var(--accent-color);
         }
 
         .intro-text {
             font-size: 1.1em;
             line-height: 1.8;
-            color: #555;
+            color: var(--text-secondary);
             text-align: justify;
         }
 
@@ -129,20 +233,20 @@
         }
 
         .research-card {
-            background: #f5f5dc;
+            background: var(--card-bg);
             padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #deb887;
-            transition: transform 0.3s ease;
+            border-radius: 0;
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .research-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+            box-shadow: 0 10px 25px var(--shadow-hover);
         }
 
         .research-card h3 {
-            color: #2c3e50;
+            color: var(--secondary-color);
             margin-bottom: 10px;
             font-size: 1.2em;
         }
@@ -154,7 +258,7 @@
 
         .research-card li {
             padding: 3px 0;
-            color: #555;
+            color: var(--text-secondary);
             position: relative;
             padding-left: 20px;
         }
@@ -163,37 +267,37 @@
             content: '▸';
             position: absolute;
             left: 0;
-            color: #deb887;
+            color: var(--primary-color);
             font-weight: bold;
         }
 
         .education-item, .publication-item {
             margin-bottom: 25px;
             padding: 20px;
-            background-color: #fff8dc;
-            border-radius: 8px;
-            border-left: 4px solid #b8860b;
+            background-color: var(--card-bg);
+            border-radius: 0;
+            border-left: 4px solid var(--success-color);
         }
 
         .degree, .pub-title {
             font-weight: bold;
-            color: #2c3e50;
+            color: var(--secondary-color);
             font-size: 1.1em;
             margin-bottom: 5px;
         }
 
         .institution, .pub-journal {
-            color: #7f8c8d;
+            color: var(--text-muted);
             margin-bottom: 5px;
         }
 
         .year {
-            color: #b8860b;
+            color: var(--primary-color);
             font-weight: 500;
         }
 
         .pub-authors {
-            color: #555;
+            color: var(--text-secondary);
             font-style: italic;
             margin-bottom: 5px;
         }
@@ -206,33 +310,35 @@
         }
 
         .skill-category {
-            background: #f5f5dc;
+            background: var(--card-bg);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 0;
             text-align: center;
+            border: 1px solid var(--border-color);
         }
 
         .skill-category h3 {
-            color: #2c3e50;
+            color: var(--secondary-color);
             margin-bottom: 15px;
         }
 
         .skill-category p {
-            color: #555;
+            color: var(--text-secondary);
             font-size: 0.95em;
         }
 
         .news-section {
-            background: #fff8dc;
+            background: var(--card-bg);
             padding: 25px;
-            border-radius: 10px;
+            border-radius: 0;
             margin-bottom: 30px;
+            border: 1px solid var(--border-color);
         }
 
         .news-item {
             margin-bottom: 15px;
             padding-bottom: 15px;
-            border-bottom: 1px solid rgba(184,134,11,0.2);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .news-item:last-child {
@@ -241,13 +347,13 @@
         }
 
         .news-date {
-            color: #2c3e50;
+            color: var(--secondary-color);
             font-weight: bold;
             font-size: 0.9em;
         }
 
         .news-content {
-            color: #555;
+            color: var(--text-secondary);
             margin-top: 5px;
         }
 
@@ -268,10 +374,23 @@
                 font-size: 0.9em;
                 padding: 6px 12px;
             }
+
+            .nav-tabs {
+                gap: 5px;
+            }
+
+            .nav-tab {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+    
     <div class="container">
         <header class="header">
             <div class="profile-img">
@@ -289,9 +408,21 @@
             </div>
         </header>
 
-        <section class="section">
+        <nav class="navigation">
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="showPage('home')"><i class="fas fa-home"></i> Home</button>
+                <button class="nav-tab" onclick="showPage('about')"><i class="fas fa-user"></i> About</button>
+                <button class="nav-tab" onclick="showPage('research')"><i class="fas fa-microscope"></i> Research</button>
+                <button class="nav-tab" onclick="showPage('education')"><i class="fas fa-graduation-cap"></i> Education</button>
+                <button class="nav-tab" onclick="showPage('publications')"><i class="fas fa-file-alt"></i> Publications</button>
+                <button class="nav-tab" onclick="showPage('skills')"><i class="fas fa-code"></i> Skills</button>
+            </div>
+        </nav>
+
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
             <div class="news-section">
-                <h2 style="color: #2c3e50; margin-bottom: 20px;"><i class="fas fa-newspaper"></i> Recent News</h2>
+                <h2 style="color: var(--secondary-color); margin-bottom: 20px;"><i class="fas fa-newspaper"></i> Recent News</h2>
                 <div class="news-item">
                     <div class="news-date">January 2025</div>
                     <div class="news-content">Successfully defended PhD thesis "Symmetry Breaking and Quantum Localization in Periodically Driven Many-Body Systems"</div>
@@ -305,16 +436,38 @@
                     <div class="news-content">Published research on phase crossover in dynamical many-body localization in Physical Review B</div>
                 </div>
             </div>
-        </section>
 
-        <section class="section">
-            <h2 class="section-title">About</h2>
-            <p class="intro-text">
-                I am a theoretical physicist specializing in quantum statistical mechanics and many-body physics. My research focuses on the intersection of quantum localization phenomena, periodically driven systems, and exotic phases of matter. I work extensively with tensor network methods, quantum simulation, and computational approaches to understand complex quantum systems. Currently, I am exploring quantum neural networks and their applications in many-body physics, alongside investigating novel phenomena such as quantum scars, time crystals, and quantum chimera states.
+            <div style="background: var(--card-bg); padding: 25px; border: 1px solid var(--border-color);">
+                <h2 style="color: var(--secondary-color); margin-bottom: 20px;"><i class="fas fa-info-circle"></i> Quick Overview</h2>
+                <p style="color: var(--text-secondary); font-size: 1.1em; line-height: 1.7;">
+                    Welcome to my academic homepage! I am a theoretical physicist specializing in quantum statistical mechanics and many-body physics. 
+                    My research focuses on quantum localization phenomena, periodically driven systems, and exotic phases of matter. 
+                    I work extensively with computational approaches including tensor network methods and quantum simulation frameworks.
+                </p>
+                <div style="margin-top: 20px; text-align: center;">
+                    <button class="nav-tab" onclick="showPage('about')" style="margin: 5px;">
+                        <i class="fas fa-arrow-right"></i> Learn More About My Work
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABOUT PAGE -->
+        <div id="about" class="page">
+            <h2 class="section-title">About Me</h2>
+            <p class="intro-text" style="margin-bottom: 30px;">
+                I am a theoretical physicist specializing in quantum statistical mechanics and many-body physics. My research focuses on the intersection of quantum localization phenomena, periodically driven systems, and exotic phases of matter. I work extensively with tensor network methods, quantum simulation, and computational approaches to understand complex quantum systems.
             </p>
-        </section>
+            <p class="intro-text" style="margin-bottom: 30px;">
+                Currently, I am exploring quantum neural networks and their applications in many-body physics, alongside investigating novel phenomena such as quantum scars, time crystals, and quantum chimera states. My work bridges theoretical understanding with computational implementation, utilizing advanced numerical methods and high-performance computing resources.
+            </p>
+            <p class="intro-text">
+                I am passionate about the intersection of quantum physics and emerging technologies, particularly in quantum computing and machine learning applications. My research contributes to understanding fundamental quantum phenomena while exploring their potential technological applications.
+            </p>
+        </div>
 
-        <section class="section">
+        <!-- RESEARCH PAGE -->
+        <div id="research" class="page">
             <h2 class="section-title">Research Interests</h2>
             <div class="research-interests">
                 <div class="research-card">
@@ -336,7 +489,7 @@
                     </ul>
                 </div>
                 <div class="research-card">
-                    <h3><i class="fas fa-quantum-state"></i> Quantum Phenomena</h3>
+                    <h3><i class="fas fa-atom"></i> Quantum Phenomena</h3>
                     <ul>
                         <li>Quantum scar & Hilbert space fragmentation</li>
                         <li>Time crystals & Chimera states</li>
@@ -354,86 +507,252 @@
                     </ul>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="section">
+        <!-- EDUCATION PAGE -->
+        <div id="education" class="page">
             <h2 class="section-title">Education</h2>
             <div class="education-item">
                 <div class="degree">Ph.D. in Physics</div>
                 <div class="institution">The University of Burdwan, India</div>
                 <div class="year">July 2018 - January 2025</div>
-                <p style="margin-top: 10px; color: #555;"><strong>Thesis:</strong> Symmetry Breaking and Quantum Localization in Periodically Driven Many-Body Systems<br>
+                <p style="margin-top: 10px; color: var(--text-secondary);"><strong>Thesis:</strong> Symmetry Breaking and Quantum Localization in Periodically Driven Many-Body Systems<br>
                 <strong>Advisor:</strong> Dr. Analabha Roy</p>
+                <p style="margin-top: 10px; color: var(--text-secondary);">
+                    Developed comprehensive theoretical and computational approaches to investigate dynamical many-body localization in periodically driven long-range quantum spin systems. Utilized Floquet engineering to numerically compute the Inverse Participation Ratio, facilitating the identification of thermal and localized regimes.
+                </p>
             </div>
             <div class="education-item">
                 <div class="degree">M.Sc. in Physics</div>
                 <div class="institution">Sidho-Kanho-Birsha University, India</div>
                 <div class="year">2014 - July 2016</div>
+                <p style="margin-top: 10px; color: var(--text-secondary);">
+                    <strong>Dissertation:</strong> Response of Very Low Frequency (VLF) waves to solar flares of varying strengths at different times of the day<br>
+                    <strong>Advisor:</strong> Dr. Sushanta K Mondal
+                </p>
             </div>
             <div class="education-item">
                 <div class="degree">B.Sc. (Honors) in Physics</div>
                 <div class="institution">The University of Burdwan, India</div>
                 <div class="year">June 2013</div>
             </div>
-        </section>
+            <div class="education-item" style="border-left-color: var(--accent-color);">
+                <div class="degree">Summer School in Quantum Information & Technology</div>
+                <div class="institution">Indian Institute of Science Education and Research Kolkata</div>
+                <div class="year">June-July 2021</div>
+                <p style="margin-top: 10px; color: var(--text-secondary);">
+                    Intensive program focusing on quantum information theory, quantum computing algorithms, and emerging quantum technologies.
+                </p>
+            </div>
+        </div>
 
-        <section class="section">
-            <h2 class="section-title">Selected Publications</h2>
+        <!-- PUBLICATIONS PAGE -->
+        <div id="publications" class="page">
+            <h2 class="section-title">Publications</h2>
             <div class="publication-item">
                 <div class="pub-title">Time crystal embodies chimera in periodically driven quantum spin system</div>
                 <div class="pub-authors">Rahaman M, Sakurai A, and Roy A.</div>
                 <div class="pub-journal">New Journal of Physics 26, 063035 (2024)</div>
+                <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.95em;">
+                    Investigation of quantum mechanical chimera states characterized by the coexistence of coupled discrete time-crystalline order and dynamical localization in periodically driven spin-1/2 chains.
+                </p>
             </div>
             <div class="publication-item">
                 <div class="pub-title">Phase crossover induced by dynamical many-body localization in periodically driven long-range spin systems</div>
                 <div class="pub-authors">Rahaman M, Mori T and Roy A.</div>
                 <div class="pub-journal">Physical Review B 109(10), 104311 (2024)</div>
+                <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.95em;">
+                    Comprehensive study of phase transitions in driven quantum systems, revealing crossover behavior between thermal and localized regimes using numerical analysis of the Inverse Participation Ratio.
+                </p>
             </div>
             <div class="publication-item">
                 <div class="pub-title">Long-lasting disturbances in the mid-latitude sub-ionospheric VLF radio signals due to the super geomagnetic storm of 17 March 2015</div>
                 <div class="pub-authors">Mondal, S. K., Pal, S., Sen, A., Rahaman, M., Midya, S. K.</div>
                 <div class="pub-journal">Advances in Space Research 68(6), 2295–2308 (2021)</div>
+                <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.95em;">
+                    Analysis of VLF wave propagation disturbances caused by major geomagnetic events, contributing to space weather research and ionospheric physics.
+                </p>
             </div>
-            <div class="publication-item" style="border-left-color: #b8860b;"></div>
+            <div class="publication-item" style="border-left-color: #f39c12;">
                 <div class="pub-title">Discrete time crystal in flat-band spin chain</div>
                 <div class="pub-authors">Rahaman M and Roy A.</div>
                 <div class="pub-journal">In progress (2025)</div>
+                <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.95em;">
+                    Theoretical investigation of time crystalline behavior in flat-band quantum spin systems, exploring novel quantum phases of matter.
+                </p>
             </div>
-        </section>
+            <div class="publication-item" style="border-left-color: #f39c12;">
+                <div class="pub-title">Quantum heat engine in DMBL-constrained periodically driven clean spin chain</div>
+                <div class="pub-authors">Rahaman M and Roy A.</div>
+                <div class="pub-journal">In progress (2025)</div>
+                <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.95em;">
+                    Development of quantum thermodynamic engines utilizing dynamical many-body localization phenomena in driven quantum systems.
+                </p>
+            </div>
+        </div>
 
-        <section class="section">
+        <!-- SKILLS PAGE -->
+        <div id="skills" class="page">
             <h2 class="section-title">Technical Skills</h2>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3><i class="fas fa-code"></i> Programming</h3>
+                    <h3><i class="fas fa-code"></i> Programming Languages</h3>
                     <p>Python, C, FORTRAN, Mathematica, LaTeX, Unix shell scripting</p>
                 </div>
                 <div class="skill-category">
-                    <h3><i class="fas fa-quantum-state"></i> Quantum Tools</h3>
-                    <p>QuTip, Quimb, Qiskit, QWorld, Tensor Networks</p>
+                    <h3><i class="fas fa-atom"></i> Quantum Frameworks</h3>
+                    <p>QuTip, Quimb, Qiskit, QWorld, Tensor Networks, TEBD</p>
                 </div>
                 <div class="skill-category">
-                    <h3><i class="fas fa-server"></i> HPC & Computing</h3>
+                    <h3><i class="fas fa-server"></i> High-Performance Computing</h3>
                     <p>SLURM, PBS, PetSc, Parallel Computing, Cluster Computing</p>
                 </div>
                 <div class="skill-category">
-                    <h3><i class="fas fa-tools"></i> Development</h3>
-                    <p>Git, Jupyter, VS Code, Vim, Spyder, Zotero</p>
+                    <h3><i class="fas fa-tools"></i> Development Tools</h3>
+                    <p>Git, Jupyter Notebook, VS Code, Vim, Spyder, Zotero</p>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-desktop"></i> Operating Systems</h3>
+                    <p>Ubuntu, Fedora, Raspberry Pi OS, Windows</p>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-chart-line"></i> Data Analysis</h3>
+                    <p>NumPy, SciPy, Matplotlib, Pandas, Scientific Computing</p>
                 </div>
             </div>
-        </section>
+            
+            <div style="margin-top: 40px; background: var(--card-bg); padding: 25px; border: 1px solid var(--border-color);">
+                <h3 style="color: var(--secondary-color); margin-bottom: 15px;"><i class="fas fa-award"></i> Awards & Recognition</h3>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="padding: 5px 0; color: var(--text-secondary);"><i class="fas fa-trophy" style="color: var(--primary-color); margin-right: 10px;"></i>Graduate Aptitude Test in Engineering (GATE), India (2019)</li>
+                    <li style="padding: 5px 0; color: var(--text-secondary);"><i class="fas fa-trophy" style="color: var(--primary-color); margin-right: 10px;"></i>Anveshan: Research convention, East zone India (2016)</li>
+                </ul>
+            </div>
+        </div>
 
-        <footer style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #eee; color: #7f8c8d;">
+        <footer style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid var(--border-color); color: var(--text-muted);">
             <p>© 2025 Mahbub Rahaman. Last updated: January 2025</p>
             <div style="margin-top: 15px;">
-                <a href="mailto:mahbub.phys@gmail.com" style="color: #b8860b; text-decoration: none; margin: 0 10px;">
+                <a href="mailto:mahbub.phys@gmail.com" style="color: var(--primary-color); text-decoration: none; margin: 0 10px;">
                     <i class="fas fa-envelope"></i> mahbub.phys@gmail.com
                 </a>
-                <a href="mailto:rahamanmahbub17@yahoo.com" style="color: #b8860b; text-decoration: none; margin: 0 10px;"></a>
+                <a href="mailto:rahamanmahbub17@yahoo.com" style="color: var(--primary-color); text-decoration: none; margin: 0 10px;">
                     <i class="fas fa-envelope"></i> rahamanmahbub17@yahoo.com
                 </a>
             </div>
         </footer>
     </div>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Page navigation functionality
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Remove active class from all nav tabs
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Add active class to clicked nav tab
+            event.target.classList.add('active');
+            
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.getElementById('themeToggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.altKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        showPageByIndex(0, 'home');
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        showPageByIndex(1, 'about');
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        showPageByIndex(2, 'research');
+                        break;
+                    case '4':
+                        e.preventDefault();
+                        showPageByIndex(3, 'education');
+                        break;
+                    case '5':
+                        e.preventDefault();
+                        showPageByIndex(4, 'publications');
+                        break;
+                    case '6':
+                        e.preventDefault();
+                        showPageByIndex(5, 'skills');
+                        break;
+                }
+            }
+        });
+
+        function showPageByIndex(index, pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Remove active class from all nav tabs
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Add active class to corresponding nav tab
+            navTabs[index].classList.add('active');
+            
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
