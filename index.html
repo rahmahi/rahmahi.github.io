@@ -4,63 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Dr. Mahbub Rahman | Theoretical Physicist</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+        :root {
+            --main-bg: #f9f9f9;
+            --accent: #22223b;
+            --highlight: #9a8c98;
+            --white: #fff;
+        }
+        html, body {
+            height: 100%;
             margin: 0;
-            background: #f5f7fa;
+            padding: 0;
+            background: var(--main-bg);
+            font-family: 'Montserrat', Arial, sans-serif;
             color: #222;
         }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
         header {
-            background: #22223b;
-            color: #fff;
-            padding: 2rem 0 1rem 0;
+            background: var(--white);
+            padding: 2.5rem 0 1.5rem 0;
             text-align: center;
+            box-shadow: 0 2px 8px rgba(34,34,59,0.06);
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--highlight);
+            margin-bottom: 1rem;
+        }
+        h1 {
+            font-size: 2.3rem;
+            margin: 0.2em 0 0.1em 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+        .subtitle {
+            color: var(--highlight);
+            font-size: 1.1rem;
+            margin-bottom: 1.2em;
+            font-weight: 400;
         }
         nav {
-            margin-top: 1rem;
+            margin: 1.5rem 0 0 0;
         }
         nav a {
-            color: #9a8c98;
+            color: var(--accent);
             text-decoration: none;
-            margin: 0 1rem;
-            font-weight: bold;
+            margin: 0 1.2rem;
+            font-weight: 700;
+            font-size: 1rem;
+            padding-bottom: 0.2em;
+            border-bottom: 2px solid transparent;
+            transition: border 0.2s;
         }
-        nav a:hover {
-            text-decoration: underline;
+        nav a:hover, nav a.active {
+            border-bottom: 2px solid var(--highlight);
+            color: var(--highlight);
         }
         main {
-            max-width: 800px;
-            margin: 2rem auto;
-            background: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(34,34,59,0.08);
+            flex: 1;
+            max-width: 700px;
+            margin: 2.5rem auto 0 auto;
+            background: var(--white);
+            padding: 2.5rem 2rem 2rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(34,34,59,0.07);
         }
         section {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
-        h1, h2 {
-            color: #22223b;
+        h2 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 0.8em;
+            font-weight: 700;
+            border-left: 4px solid var(--highlight);
+            padding-left: 0.7em;
         }
         ul {
             padding-left: 1.2em;
+            margin: 0.5em 0 0 0;
+        }
+        li {
+            margin-bottom: 0.7em;
+        }
+        .pub-title {
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .pub-journal {
+            font-style: italic;
+            color: #555;
+        }
+        .contact-links a {
+            color: var(--highlight);
+            text-decoration: none;
+            font-weight: 700;
+            margin-right: 1.5em;
+        }
+        .contact-links a:hover {
+            text-decoration: underline;
         }
         footer {
             text-align: center;
-            padding: 1rem 0;
-            background: #22223b;
-            color: #fff;
-            margin-top: 2rem;
+            padding: 1.2rem 0 1rem 0;
+            background: var(--white);
+            color: #888;
+            font-size: 0.95rem;
+            border-top: 1px solid #eee;
+            margin-top: 2.5rem;
+        }
+        @media (max-width: 600px) {
+            main {
+                padding: 1.2rem 0.5rem;
+            }
+            nav a {
+                margin: 0 0.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <header>
+        <img src="https://avatars.githubusercontent.com/u/1516420?v=4" alt="Dr. Mahbub Rahman" class="avatar">
         <h1>Dr. Mahbub Rahman</h1>
-        <p>Theoretical Physicist &amp; Scientist</p>
+        <div class="subtitle">Theoretical Physicist &amp; Scientist</div>
         <nav>
-            <a href="#about">About</a>
+            <a href="#about" class="active">About</a>
             <a href="#research">Research</a>
             <a href="#publications">Publications</a>
             <a href="#contact">Contact</a>
@@ -87,29 +164,29 @@
             <h2>Selected Publications</h2>
             <ul>
                 <li>
-                    <strong>On the Structure of Quantum Spacetime</strong><br>
-                    <em>Journal of Theoretical Physics</em>, 2023
+                    <span class="pub-title">On the Structure of Quantum Spacetime</span><br>
+                    <span class="pub-journal">Journal of Theoretical Physics</span>, 2023
                 </li>
                 <li>
-                    <strong>Cosmological Models Beyond the Standard Paradigm</strong><br>
-                    <em>Physics Letters B</em>, 2022
+                    <span class="pub-title">Cosmological Models Beyond the Standard Paradigm</span><br>
+                    <span class="pub-journal">Physics Letters B</span>, 2022
                 </li>
                 <li>
-                    <strong>Mathematical Methods in Quantum Gravity</strong><br>
-                    <em>Annals of Physics</em>, 2021
+                    <span class="pub-title">Mathematical Methods in Quantum Gravity</span><br>
+                    <span class="pub-journal">Annals of Physics</span>, 2021
                 </li>
             </ul>
         </section>
         <section id="contact">
             <h2>Contact</h2>
-            <p>
-                Email: <a href="mailto:mahbub.rahman@email.com">mahbub.rahman@email.com</a><br>
-                GitHub: <a href="https://github.com/rahmahi" target="_blank">rahmahi</a>
-            </p>
+            <div class="contact-links">
+                <a href="mailto:mahbub.rahman@email.com">Email</a>
+                <a href="https://github.com/rahmahi" target="_blank">GitHub</a>
+            </div>
         </section>
     </main>
     <footer>
-        &copy; 2024 Dr. Mahbub Rahman. All rights reserved.
+        &copy; 2025 Dr. Mahbub Rahman. All rights reserved.
     </footer>
 </body>
 </html>
