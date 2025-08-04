@@ -2,191 +2,438 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Dr. Mahbub Rahman | Theoretical Physicist</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahbub Rahaman</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --main-bg: #f9f9f9;
-            --accent: #22223b;
-            --highlight: #9a8c98;
-            --white: #fff;
-        }
-        html, body {
-            height: 100%;
+        * {
             margin: 0;
             padding: 0;
-            background: var(--main-bg);
-            font-family: 'Montserrat', Arial, sans-serif;
-            color: #222;
+            box-sizing: border-box;
         }
+
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fafafa;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
-        header {
-            background: var(--white);
-            padding: 2.5rem 0 1.5rem 0;
+
+        .header {
             text-align: center;
-            box-shadow: 0 2px 8px rgba(34,34,59,0.06);
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #eee;
         }
-        .avatar {
-            width: 120px;
-            height: 120px;
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--highlight);
-            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
-        h1 {
-            font-size: 2.3rem;
-            margin: 0.2em 0 0.1em 0;
-            color: var(--accent);
+
+        .name {
+            font-size: 2.5em;
             font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
         }
-        .subtitle {
-            color: var(--highlight);
-            font-size: 1.1rem;
-            margin-bottom: 1.2em;
-            font-weight: 400;
+
+        .title {
+            font-size: 1.3em;
+            color: #7f8c8d;
+            margin-bottom: 15px;
         }
-        nav {
-            margin: 1.5rem 0 0 0;
+
+        .affiliation {
+            font-size: 1.1em;
+            color: #34495e;
+            margin-bottom: 20px;
         }
-        nav a {
-            color: var(--accent);
-            text-decoration: none;
-            margin: 0 1.2rem;
-            font-weight: 700;
-            font-size: 1rem;
-            padding-bottom: 0.2em;
-            border-bottom: 2px solid transparent;
-            transition: border 0.2s;
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
-        nav a:hover, nav a.active {
-            border-bottom: 2px solid var(--highlight);
-            color: var(--highlight);
-        }
-        main {
-            flex: 1;
-            max-width: 700px;
-            margin: 2.5rem auto 0 auto;
-            background: var(--white);
-            padding: 2.5rem 2rem 2rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(34,34,59,0.07);
-        }
-        section {
-            margin-bottom: 2.5rem;
-        }
-        h2 {
-            color: var(--accent);
-            font-size: 1.3rem;
-            margin-bottom: 0.8em;
-            font-weight: 700;
-            border-left: 4px solid var(--highlight);
-            padding-left: 0.7em;
-        }
-        ul {
-            padding-left: 1.2em;
-            margin: 0.5em 0 0 0;
-        }
-        li {
-            margin-bottom: 0.7em;
-        }
-        .pub-title {
-            font-weight: 700;
-            color: var(--accent);
-        }
-        .pub-journal {
-            font-style: italic;
-            color: #555;
-        }
+
         .contact-links a {
-            color: var(--highlight);
+            color: #3498db;
             text-decoration: none;
-            font-weight: 700;
-            margin-right: 1.5em;
+            font-size: 1.1em;
+            padding: 8px 15px;
+            border-radius: 25px;
+            background-color: #ecf0f1;
+            transition: all 0.3s ease;
         }
+
         .contact-links a:hover {
-            text-decoration: underline;
+            background-color: #3498db;
+            color: white;
+            transform: translateY(-2px);
         }
-        footer {
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #e74c3c;
+        }
+
+        .intro-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+        }
+
+        .research-interests {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .research-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .research-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .research-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .research-card li {
+            padding: 3px 0;
+            color: #555;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .research-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .education-item, .publication-item {
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+        }
+
+        .degree, .pub-title {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .institution, .pub-journal {
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+
+        .year {
+            color: #3498db;
+            font-weight: 500;
+        }
+
+        .pub-authors {
+            color: #555;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .skill-category {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
-            padding: 1.2rem 0 1rem 0;
-            background: var(--white);
-            color: #888;
-            font-size: 0.95rem;
-            border-top: 1px solid #eee;
-            margin-top: 2.5rem;
         }
-        @media (max-width: 600px) {
-            main {
-                padding: 1.2rem 0.5rem;
+
+        .skill-category h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .skill-category p {
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .news-section {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .news-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .news-date {
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .news-content {
+            color: #555;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
             }
-            nav a {
-                margin: 0 0.5rem;
+            
+            .name {
+                font-size: 2em;
+            }
+            
+            .contact-links {
+                gap: 10px;
+            }
+            
+            .contact-links a {
+                font-size: 0.9em;
+                padding: 6px 12px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <img src="https://avatars.githubusercontent.com/u/1516420?v=4" alt="Dr. Mahbub Rahman" class="avatar">
-        <h1>Dr. Mahbub Rahman</h1>
-        <div class="subtitle">Theoretical Physicist &amp; Scientist</div>
-        <nav>
-            <a href="#about" class="active">About</a>
-            <a href="#research">Research</a>
-            <a href="#publications">Publications</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
-    <main>
-        <section id="about">
-            <h2>About Me</h2>
-            <p>
-                I am a theoretical physicist specializing in quantum field theory, cosmology, and the mathematical foundations of physics. My work explores the fundamental laws governing the universe, with a passion for both research and science communication.
-            </p>
-        </section>
-        <section id="research">
-            <h2>Research Interests</h2>
-            <ul>
-                <li>Quantum Field Theory &amp; Particle Physics</li>
-                <li>General Relativity &amp; Cosmology</li>
-                <li>Mathematical Physics</li>
-                <li>Quantum Gravity</li>
-                <li>Science Outreach &amp; Education</li>
-            </ul>
-        </section>
-        <section id="publications">
-            <h2>Selected Publications</h2>
-            <ul>
-                <li>
-                    <span class="pub-title">On the Structure of Quantum Spacetime</span><br>
-                    <span class="pub-journal">Journal of Theoretical Physics</span>, 2023
-                </li>
-                <li>
-                    <span class="pub-title">Cosmological Models Beyond the Standard Paradigm</span><br>
-                    <span class="pub-journal">Physics Letters B</span>, 2022
-                </li>
-                <li>
-                    <span class="pub-title">Mathematical Methods in Quantum Gravity</span><br>
-                    <span class="pub-journal">Annals of Physics</span>, 2021
-                </li>
-            </ul>
-        </section>
-        <section id="contact">
-            <h2>Contact</h2>
+    <div class="container">
+        <header class="header">
+            <div class="profile-img">
+                <i class="fas fa-atom"></i>
+            </div>
+            <h1 class="name">Mahbub Rahaman</h1>
+            <p class="title">Senior Research Fellow</p>
+            <p class="affiliation">Department of Physics<br>The University of Burdwan, West Bengal, India</p>
             <div class="contact-links">
-                <a href="mailto:mahbub.rahman@email.com">Email</a>
-                <a href="https://github.com/rahmahi" target="_blank">GitHub</a>
+                <a href="mailto:mahbub.phys@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://orcid.org/your-orcid" target="_blank"><i class="fab fa-orcid"></i> ORCID</a>
+                <a href="https://arxiv.org/a/your-profile" target="_blank"><i class="fas fa-file-alt"></i> arXiv</a>
+                <a href="https://scholar.google.com/citations?user=your-id" target="_blank"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+            </div>
+        </header>
+
+        <section class="section">
+            <div class="news-section">
+                <h2 style="color: #2c3e50; margin-bottom: 20px;"><i class="fas fa-newspaper"></i> Recent News</h2>
+                <div class="news-item">
+                    <div class="news-date">January 2025</div>
+                    <div class="news-content">Successfully defended PhD thesis "Symmetry Breaking and Quantum Localization in Periodically Driven Many-Body Systems"</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">June 2024</div>
+                    <div class="news-content">Published "Time crystal embodies chimera in periodically driven quantum spin system" in New Journal of Physics</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">March 2024</div>
+                    <div class="news-content">Published research on phase crossover in dynamical many-body localization in Physical Review B</div>
+                </div>
             </div>
         </section>
-    </main>
-    <footer>
-        &copy; 2025 Dr. Mahbub Rahman. All rights reserved.
-    </footer>
+
+        <section class="section">
+            <h2 class="section-title">About</h2>
+            <p class="intro-text">
+                I am a theoretical physicist specializing in quantum statistical mechanics and many-body physics. My research focuses on the intersection of quantum localization phenomena, periodically driven systems, and exotic phases of matter. I work extensively with tensor network methods, quantum simulation, and computational approaches to understand complex quantum systems. Currently, I am exploring quantum neural networks and their applications in many-body physics, alongside investigating novel phenomena such as quantum scars, time crystals, and quantum chimera states.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Research Interests</h2>
+            <div class="research-interests">
+                <div class="research-card">
+                    <h3><i class="fas fa-microscope"></i> Quantum Many-Body Physics</h3>
+                    <ul>
+                        <li>Many-body Statistical Physics</li>
+                        <li>Phase transitions & Quantum criticality</li>
+                        <li>Exotic phases of matter</li>
+                        <li>Quantum entanglement & Correlation</li>
+                    </ul>
+                </div>
+                <div class="research-card">
+                    <h3><i class="fas fa-cogs"></i> Computational Methods</h3>
+                    <ul>
+                        <li>Tensor network methods (TEBD)</li>
+                        <li>QuTip & Qiskit frameworks</li>
+                        <li>Quantum Monte Carlo methods</li>
+                        <li>Parallel & HPC computing</li>
+                    </ul>
+                </div>
+                <div class="research-card">
+                    <h3><i class="fas fa-quantum-state"></i> Quantum Phenomena</h3>
+                    <ul>
+                        <li>Quantum scar & Hilbert space fragmentation</li>
+                        <li>Time crystals & Chimera states</li>
+                        <li>Dynamical many-body localization</li>
+                        <li>Floquet engineering</li>
+                    </ul>
+                </div>
+                <div class="research-card">
+                    <h3><i class="fas fa-brain"></i> Quantum Computing & AI</h3>
+                    <ul>
+                        <li>Quantum Computation & Simulation</li>
+                        <li>Quantum Neural Networks (QNN)</li>
+                        <li>Wavefunction network theory</li>
+                        <li>Deep Learning applications</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Education</h2>
+            <div class="education-item">
+                <div class="degree">Ph.D. in Physics</div>
+                <div class="institution">The University of Burdwan, India</div>
+                <div class="year">July 2018 - January 2025</div>
+                <p style="margin-top: 10px; color: #555;"><strong>Thesis:</strong> Symmetry Breaking and Quantum Localization in Periodically Driven Many-Body Systems<br>
+                <strong>Advisor:</strong> Dr. Analabha Roy</p>
+            </div>
+            <div class="education-item">
+                <div class="degree">M.Sc. in Physics</div>
+                <div class="institution">Sidho-Kanho-Birsha University, India</div>
+                <div class="year">2014 - July 2016</div>
+            </div>
+            <div class="education-item">
+                <div class="degree">B.Sc. (Honors) in Physics</div>
+                <div class="institution">The University of Burdwan, India</div>
+                <div class="year">June 2013</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Selected Publications</h2>
+            <div class="publication-item">
+                <div class="pub-title">Time crystal embodies chimera in periodically driven quantum spin system</div>
+                <div class="pub-authors">Rahaman M, Sakurai A, and Roy A.</div>
+                <div class="pub-journal">New Journal of Physics 26, 063035 (2024)</div>
+            </div>
+            <div class="publication-item">
+                <div class="pub-title">Phase crossover induced by dynamical many-body localization in periodically driven long-range spin systems</div>
+                <div class="pub-authors">Rahaman M, Mori T and Roy A.</div>
+                <div class="pub-journal">Physical Review B 109(10), 104311 (2024)</div>
+            </div>
+            <div class="publication-item">
+                <div class="pub-title">Long-lasting disturbances in the mid-latitude sub-ionospheric VLF radio signals due to the super geomagnetic storm of 17 March 2015</div>
+                <div class="pub-authors">Mondal, S. K., Pal, S., Sen, A., Rahaman, M., Midya, S. K.</div>
+                <div class="pub-journal">Advances in Space Research 68(6), 2295–2308 (2021)</div>
+            </div>
+            <div class="publication-item" style="border-left-color: #f39c12;">
+                <div class="pub-title">Discrete time crystal in flat-band spin chain</div>
+                <div class="pub-authors">Rahaman M and Roy A.</div>
+                <div class="pub-journal">In progress (2025)</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Programming</h3>
+                    <p>Python, C, FORTRAN, Mathematica, LaTeX, Unix shell scripting</p>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-quantum-state"></i> Quantum Tools</h3>
+                    <p>QuTip, Quimb, Qiskit, QWorld, Tensor Networks</p>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-server"></i> HPC & Computing</h3>
+                    <p>SLURM, PBS, PetSc, Parallel Computing, Cluster Computing</p>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-tools"></i> Development</h3>
+                    <p>Git, Jupyter, VS Code, Vim, Spyder, Zotero</p>
+                </div>
+            </div>
+        </section>
+
+        <footer style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #eee; color: #7f8c8d;">
+            <p>© 2025 Mahbub Rahaman. Last updated: January 2025</p>
+            <div style="margin-top: 15px;">
+                <a href="mailto:mahbub.phys@gmail.com" style="color: #3498db; text-decoration: none; margin: 0 10px;">
+                    <i class="fas fa-envelope"></i> mahbub.phys@gmail.com
+                </a>
+                <a href="mailto:rahamanmahbub17@yahoo.com" style="color: #3498db; text-decoration: none; margin: 0 10px;">
+                    <i class="fas fa-envelope"></i> rahamanmahbub17@yahoo.com
+                </a>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>
