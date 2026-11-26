@@ -1,1108 +1,972 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahbub Rahaman</title>
-    <meta name="description" content="Mahbub Rahaman — theoretical physicist working on quantum many-body physics, Floquet systems, time crystals and many-body localization. Postdoctoral Fellow, Harish-Chandra Research Institute.">
-    <meta name="theme-color" content="#f3ecdf">
-    <link rel="icon" href="mahbub.jpg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --paper: #f3ecdf;
-            --paper-2: #ebe2d1;
-            --ink: #161310;
-            --ink-2: #3a342c;
-            --ink-3: #6f6557;
-            --wash: rgba(22, 19, 16, 0.06);
-            --line: rgba(22, 19, 16, 0.16);
-            --line-strong: rgba(22, 19, 16, 0.55);
-            --shu: #b3372b;
-            --serif: 'EB Garamond', Garamond, Georgia, serif;
-            --italic: 'Cormorant Garamond', Georgia, serif;
-            --display: 'Cormorant Garamond', Georgia, serif;
-            --nav-h: 72px;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mahbub Rahaman</title>
+<meta name="description" content="Mahbub Rahaman, postdoctoral fellow at the Harish-Chandra Research Institute. Non-equilibrium quantum many-body physics: thermalization and its breakdown, Floquet systems, discrete time crystals.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="mahbub_new.jpeg">
+<script>
+  document.documentElement.classList.add('js');
+  try {
+    var savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.setAttribute('data-theme', savedTheme);
+  } catch (e) {}
+</script>
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f6f6f3;
+    --text: #1f1f1f;
+    --muted: #5c5c5c;
+    --link: #1a5296;
+    --accent: #c4561f;
+    --rule: #dddddd;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161616;
+      --panel: #1e1e1e;
+      --text: #e3e3e3;
+      --muted: #a3a3a3;
+      --link: #8db6ec;
+      --accent: #ec9665;
+      --rule: #3a3a3a;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161616;
+    --panel: #1e1e1e;
+    --text: #e3e3e3;
+    --muted: #a3a3a3;
+    --link: #8db6ec;
+    --accent: #ec9665;
+    --rule: #3a3a3a;
+    color-scheme: dark;
+  }
 
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.6 Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 68rem; margin: 0 auto; padding: 3.5rem 2.5rem 4rem; }
 
-        html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 16px); }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-        body {
-            font-family: var(--serif);
-            line-height: 1.8;
-            color: var(--ink);
-            background-color: var(--paper);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+  /* Light/dark switch */
+  .theme {
+    position: fixed; top: 1rem; right: 1rem; z-index: 10;
+    width: 2.5rem; height: 2.5rem; padding: 0; display: grid; place-items: center;
+    color: var(--muted); background: var(--bg); border: 1px solid var(--rule); border-radius: 50%; cursor: pointer;
+  }
+  .theme:hover { color: var(--text); border-color: var(--muted); }
+  .theme:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  .theme svg { width: 1.15rem; height: 1.15rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .theme .sun { display: none; }
+  :root[data-theme="dark"] .theme .sun { display: block; }
+  :root[data-theme="dark"] .theme .moon { display: none; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme .sun { display: block; }
+    :root:not([data-theme="light"]) .theme .moon { display: none; }
+  }
+  html:not(.js) .theme { display: none; }
 
-        ::selection { background: var(--ink); color: var(--paper); }
+  /* Top: identity on the left, bio on the right */
+  .top { display: grid; grid-template-columns: 17rem minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+  .id img { display: block; width: 190px; height: 190px; object-fit: cover; margin-bottom: 1.1rem; }
+  h1 { font-size: 1.85rem; font-weight: normal; line-height: 1.2; margin: 0 0 .5rem; }
+  .id p { margin: 0; }
+  .id .links { margin-top: .7rem; }
+  .id .links a { white-space: nowrap; }
+  .bio p { margin: 0 0 1rem; }
+  .bio p:last-child { margin-bottom: 0; }
 
-        a { color: inherit; text-decoration: none; }
+  h2 {
+    font-size: 1.15rem; margin: 3rem 0 1rem; padding-bottom: .3rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  h3 { font-size: 1rem; font-weight: normal; font-style: italic; color: var(--muted); margin: 1.4rem 0 .6rem; }
 
-        svg.defs { position: absolute; width: 0; height: 0; }
+  ol, ul { padding-left: 1.4rem; margin: 0; }
+  li { margin-bottom: .7rem; }
+  .sub { display: block; color: var(--muted); }
 
+  /* Research figures */
+  .figs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.75rem 1.5rem; }
+  .figs figure { margin: 0; }
+  .figs .span2 { grid-column: span 2; }
+  .figs canvas { display: block; width: 100%; aspect-ratio: 320 / 210; background: var(--panel); border-radius: 4px; }
+  .figs #fig-qc { aspect-ratio: 860 / 270; }
+  figcaption { margin-top: .5rem; font-size: .86rem; line-height: 1.45; color: var(--muted); }
+  figcaption b { color: var(--text); }
+  html:not(.js) #research { display: none; }
 
-        /* ---------- Loader: an ensō is brushed, then the page appears ---------- */
-        .loader {
-            position: fixed; inset: 0; z-index: 9999; background: var(--paper);
-            display: grid; place-items: center; transition: opacity .8s ease, visibility .8s ease;
-        }
-        .loader.done { opacity: 0; visibility: hidden; }
-        .loader svg { width: 150px; height: 150px; }
-        .loader .enso-path { stroke-dasharray: 560; stroke-dashoffset: 560; animation: brush 1.3s cubic-bezier(.6,.1,.3,1) forwards; }
-        .loader-mark {
-            position: absolute; font-family: var(--display); font-style: italic; font-weight: 600; font-size: 2.2rem; color: var(--ink);
-            opacity: 0; animation: inkIn .9s .7s forwards;
-        }
+  /* Lower part: two columns */
+  .cols { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 0 3.5rem; }
 
-        @keyframes brush { to { stroke-dashoffset: 0; } }
-        @keyframes inkIn { from { opacity: 0; filter: blur(6px); } to { opacity: 1; filter: blur(0); } }
+  /* Tabs */
+  .tablist { display: flex; flex-wrap: wrap; gap: .25rem 1.4rem; margin: 0 0 1.1rem; }
+  .tablist button {
+    font: inherit; color: var(--muted); background: none; border: 0; border-bottom: 2px solid transparent;
+    padding: .1rem 0; cursor: pointer;
+  }
+  .tablist button:hover { color: var(--text); }
+  .tablist button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--link); }
+  .tablist button:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+  .tablist[hidden], .tablist button[hidden] { display: none; }
+  html:not(.js) .tablist { display: none; }
+  html:not(.js) [role="tabpanel"][hidden] { display: block; }
+  html:not(.js) [role="tabpanel"][hidden]:not(:has(li)) { display: none; }
+  .js .nojs { display: none; }
 
-        .enso-path { fill: none; stroke: var(--ink); stroke-linecap: round; filter: url(#rough); }
+  .dated { list-style: none; padding: 0; }
+  .dated li { display: grid; grid-template-columns: 3.5rem 1fr; }
+  .dated li > span:first-child { color: var(--muted); }
 
-        /* ---------- Nav ---------- */
-        .scroll-progress {
-            position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 1001;
-            background: var(--ink); filter: url(#rough);
-        }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: .35rem 1.1rem; margin: 0; }
+  dt { color: var(--muted); }
+  dd { margin: 0; }
 
-        .nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: var(--nav-h);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 clamp(16px, 4vw, 56px);
-            transition: background .4s, box-shadow .4s;
-        }
-        .nav.scrolled { background: rgba(243, 236, 223, .9); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); box-shadow: 0 1px 0 var(--line); }
-
-        .brand { display: flex; align-items: center; gap: 12px; }
-        .brand .seal-sm {
-            width: 34px; height: 34px; border-radius: 4px; background: var(--shu); color: var(--paper);
-            font-family: var(--serif); font-weight: 700; font-size: .78rem; line-height: 1; display: grid; place-items: center;
-            letter-spacing: .02em; transform: rotate(-3deg);
-            box-shadow: inset 0 0 0 2px rgba(243,236,223,.35);
-        }
-        .brand .wordmark { font-weight: 700; letter-spacing: .14em; font-size: .95rem; text-transform: uppercase; }
-
-        .nav-links { display: flex; gap: 6px; list-style: none; }
-        .nav-links a {
-            display: flex; flex-direction: column; align-items: center; padding: 6px 12px;
-            font-size: .88rem; color: var(--ink-2); letter-spacing: .06em; position: relative;
-            transition: color .3s;
-        }
-        .nav-links a .kn { font-family: var(--display); font-style: italic; font-weight: 600; font-size: .78rem; color: var(--ink-3); line-height: 1; margin-bottom: 3px; transition: color .3s; }
-        .nav-links a::after {
-            content: ''; position: absolute; left: 14%; right: 14%; bottom: 0; height: 2px;
-            background: var(--ink); border-radius: 2px; filter: url(#rough);
-            transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.6,.1,.3,1);
-        }
-        .nav-links a:hover, .nav-links a.active { color: var(--ink); }
-        .nav-links a.active .kn { color: var(--shu); }
-        .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
-
-        .menu-btn {
-            display: none; width: 42px; height: 42px; border: 1px solid var(--line-strong); background: transparent;
-            color: var(--ink); border-radius: 50%; cursor: pointer; font-size: 1rem;
-        }
-
-        /* ---------- Shared ---------- */
-        .section { position: relative; max-width: 1080px; margin: 0 auto; padding: 120px clamp(18px, 4vw, 40px) 30px; }
-
-        .watermark {
-            position: absolute; top: 40px; right: clamp(-10px, 2vw, 30px); z-index: -1;
-            font-family: var(--display); font-style: italic; font-weight: 500; font-size: clamp(8rem, 20vw, 15rem); line-height: 1;
-            color: var(--ink); opacity: .05; pointer-events: none; user-select: none;
-        }
-
-        .section-head { margin-bottom: 48px; }
-        .eyebrow {
-            display: inline-flex; align-items: center; gap: 14px;
-            font-family: var(--italic); font-style: italic; font-size: 1.1rem; color: var(--ink-3);
-        }
-        .eyebrow .num { font-family: var(--display); font-style: italic; font-weight: 600; color: var(--shu); font-size: 1.15rem; }
-        .section-title { font-size: clamp(2rem, 4.4vw, 3rem); font-weight: 700; line-height: 1.2; margin-top: 6px; letter-spacing: .01em; }
-        .section-title em { font-family: var(--italic); font-weight: 500; font-style: italic; }
-
-        .stroke { display: block; width: min(240px, 60%); height: 22px; margin-top: 10px; overflow: visible; }
-        .stroke path { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linecap: round; filter: url(#rough); stroke-dasharray: 260; stroke-dashoffset: 260; transition: stroke-dashoffset 1.2s cubic-bezier(.6,.1,.3,1) .2s; }
-        .reveal.in .stroke path { stroke-dashoffset: 0; }
-
-        /* Paper card */
-        .sheet {
-            position: relative; background: rgba(250, 246, 238, .62); padding: 28px 30px;
-            border: 1px solid var(--line); border-radius: 3px;
-            box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 12px 28px -18px rgba(70, 50, 20, .35);
-            transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s, border-color .4s;
-            overflow: hidden;
-        }
-        .sheet:hover { transform: translateY(-4px); border-color: var(--line-strong); box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 22px 40px -22px rgba(70, 50, 20, .45); }
-
-        .reveal { opacity: 0; transform: translateY(24px); filter: blur(5px); transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.7,.2,1), filter 1.1s ease; transition-delay: var(--d, 0s); }
-        .reveal.in { opacity: 1; transform: none; filter: none; }
-        .sheet.reveal.in:hover { transform: translateY(-4px); }
-
-        /* ---------- Hero ---------- */
-        .hero {
-            position: relative; min-height: 100vh; min-height: 100svh;
-            max-width: 1080px; margin: 0 auto;
-            display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center;
-            padding: calc(var(--nav-h) + 30px) clamp(18px, 4vw, 40px) 60px;
-        }
-        .hero-tate {
-            position: absolute; left: clamp(-6px, 1vw, 10px); top: 50%;
-            writing-mode: vertical-rl; transform: translateY(-50%) rotate(180deg); font-family: var(--display); font-style: italic; font-size: 1rem; letter-spacing: .3em;
-            color: var(--ink-3); opacity: .8;
-        }
-
-        .hero .rise { opacity: 0; transform: translateY(18px); filter: blur(6px); animation: rise 1.2s cubic-bezier(.2,.7,.2,1) forwards; }
-        @keyframes rise { to { opacity: 1; transform: none; filter: blur(0); } }
-
-        .hero-kicker { font-family: var(--italic); font-style: italic; font-size: 1.25rem; color: var(--ink-2); }
-        .hero-name { position: relative; font-size: clamp(3rem, 8vw, 5.6rem); font-weight: 800; line-height: 1.02; letter-spacing: -.01em; margin: 10px 0 22px; }
-        .hero-name .row { display: block; }
-        .hero-name .row:nth-child(2) { padding-left: clamp(24px, 6vw, 80px); }
-
-        .seal {
-            position: absolute; right: clamp(-10px, 2vw, 40px); top: -14px;
-            width: 70px; height: 70px; border-radius: 6px; background: var(--shu); color: #f6efe3;
-            display: grid; place-items: center; font-family: var(--serif); font-weight: 700; font-size: 1.45rem; line-height: 1;
-            letter-spacing: .04em;
-            box-shadow: inset 0 0 0 3px rgba(246,239,227,.5), inset 0 0 0 5px var(--shu), inset 0 0 0 6px rgba(246,239,227,.4);
-            filter: url(#seal); opacity: 0; transform: scale(2.4) rotate(-14deg);
-            animation: stamp .45s 2.1s cubic-bezier(.5,0,.8,.4) forwards;
-        }
-        @keyframes stamp { 80% { opacity: 1; transform: scale(.94) rotate(-6deg); } 100% { opacity: .92; transform: scale(1) rotate(-6deg); } }
-
-        .verse { font-family: var(--italic); font-size: clamp(1.15rem, 2.2vw, 1.4rem); color: var(--ink-2); min-height: 2em; }
-        .verse .dash { color: var(--shu); margin-right: 10px; }
-        .verse #role { transition: opacity .7s ease, filter .7s ease; display: inline-block; }
-        .verse #role.fade { opacity: 0; filter: blur(4px); }
-
-        .hero-meta { margin-top: 22px; color: var(--ink-2); font-size: 1rem; }
-        .hero-meta div { display: flex; gap: 12px; align-items: baseline; margin: 4px 0; }
-        .hero-meta i { color: var(--ink-3); width: 16px; font-size: .85rem; }
-        .hero-meta strong { font-weight: 700; color: var(--ink); }
-
-        .actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
-        .btn {
-            position: relative; display: inline-flex; align-items: center; gap: 10px;
-            padding: 13px 26px; font-family: var(--serif); font-size: .95rem; font-weight: 600; letter-spacing: .05em;
-            color: var(--ink); background: transparent; border: 1.5px solid var(--ink); border-radius: 2px;
-            overflow: hidden; isolation: isolate; cursor: pointer; transition: color .45s;
-        }
-        .btn::before {
-            /* ink fills the button like a brush sweep */
-            content: ''; position: absolute; inset: -2px; z-index: -1; background: var(--ink);
-            transform: scaleX(0); transform-origin: right; transition: transform .55s cubic-bezier(.6,.1,.3,1);
-            filter: url(#rough);
-        }
-        .btn:hover { color: var(--paper); }
-        .btn:hover::before { transform: scaleX(1.04); transform-origin: left; }
-        .btn.solid { background: var(--ink); color: var(--paper); }
-        .btn.solid::before { background: var(--shu); }
-
-        .socials { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 30px; }
-        .socials a {
-            position: relative; width: 42px; height: 42px; border-radius: 50%;
-            display: grid; place-items: center; color: var(--ink-2); font-size: 1rem;
-            border: 1px solid var(--line-strong); transition: all .35s;
-        }
-        .socials a:hover { background: var(--ink); color: var(--paper); transform: translateY(-3px) rotate(-6deg); }
-        .socials .ax { font-weight: 800; font-size: .66rem; letter-spacing: .02em; }
-        .socials a[data-tip]::after {
-            content: attr(data-tip); position: absolute; top: calc(100% + 8px); left: 50%; transform: translate(-50%, -4px);
-            font-family: var(--italic); font-style: italic; font-size: .85rem; white-space: nowrap; color: var(--ink);
-            opacity: 0; pointer-events: none; transition: all .3s;
-        }
-        .socials a:hover::after { opacity: 1; transform: translate(-50%, 0); }
-
-        /* Portrait inside a brushed ensō */
-        .portrait-wrap { position: relative; width: min(400px, 78vw); aspect-ratio: 1; margin: 0 auto; }
-        .portrait-wrap .enso { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; transform: rotate(-20deg); }
-        .portrait-wrap .enso .enso-path { stroke-dasharray: 1100; stroke-dashoffset: 1100; animation: brush 2.2s 1.2s cubic-bezier(.65,.05,.3,1) forwards; }
-        .portrait-wrap .enso .enso-thin { stroke-width: 3; opacity: .45; animation-delay: 1.6s; }
-        .portrait {
-            position: absolute; inset: 15%; border-radius: 50%; overflow: hidden;
-            box-shadow: 0 0 0 6px var(--paper), 0 0 0 7px var(--line);
-        }
-        .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .portrait-caption {
-            position: absolute; right: -4%; bottom: 4%; writing-mode: vertical-rl;
-            font-family: var(--display); font-style: italic; font-size: 1.2rem; color: var(--ink); letter-spacing: .2em;
-        }
-
-        .hero-mark {
-            position: absolute; z-index: -1; right: 2%; top: 8%; font-family: var(--display); font-style: italic;
-            font-size: clamp(12rem, 30vw, 22rem); line-height: 1; color: var(--ink); opacity: .045;
-            pointer-events: none; user-select: none;
-        }
-
-        .scroll-hint {
-            position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
-            font-family: var(--italic); font-style: italic; color: var(--ink-3); font-size: .95rem;
-        }
-        .scroll-hint span { width: 1.5px; height: 46px; background: linear-gradient(var(--ink), transparent); transform-origin: top; animation: drip 2.2s ease-in-out infinite; }
-        @keyframes drip { 0% { transform: scaleY(0); opacity: 1; } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
-
-        /* ---------- Stats ---------- */
-        .stats { max-width: 1080px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); }
-        .stats-inner { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); }
-        .stat { padding: 24px 20px; text-align: center; }
-        .stat + .stat { border-left: 1px solid var(--line); }
-        .stat-num { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.1; }
-        .stat-label { font-family: var(--italic); font-style: italic; color: var(--ink-3); font-size: 1.02rem; }
-
-        /* ---------- About ---------- */
-        .about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 36px; align-items: start; }
-        .about-text p { font-size: 1.07rem; color: var(--ink-2); margin-bottom: 20px; }
-        .about-text p:last-child { margin-bottom: 0; }
-        .about-text p:first-child::first-letter {
-            float: left; font-family: var(--display); font-weight: 600; font-size: 4.6rem; line-height: .9; padding: 6px 12px 0 0; color: var(--ink);
-        }
-        .about-text strong { color: var(--ink); }
-
-        .glance h3 { font-size: 1.05rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: baseline; }
-        .kv { display: grid; grid-template-columns: max-content 1fr; gap: 10px 18px; font-size: .97rem; }
-        .kv dt { font-family: var(--italic); font-style: italic; color: var(--ink-3); font-size: 1.02rem; }
-        .kv dd { color: var(--ink); }
-
-        /* ---------- News ---------- */
-        .news-list { list-style: none; border-top: 1px solid var(--line); }
-        .news-item {
-            display: grid; grid-template-columns: 110px 1fr; gap: 24px; padding: 22px 8px;
-            border-bottom: 1px solid var(--line); transition: background .4s, padding .4s;
-        }
-        .news-item:hover { background: var(--wash); padding-left: 18px; }
-        .news-date { font-size: 1.5rem; font-weight: 800; line-height: 1.2; }
-        .news-content { color: var(--ink-2); }
-        .news-content em { font-family: var(--italic); font-size: 1.08em; color: var(--ink); }
-        .news-content a { color: var(--ink); border-bottom: 1.5px solid var(--shu); }
-
-        /* ---------- Research ---------- */
-        .research-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-        .r-card { padding: 26px 30px 28px; }
-
-        /* Small ink figures, one per topic; they animate only once the card is on screen */
-        .r-fig { margin: 0 -6px 18px; padding-bottom: 14px; border-bottom: 1px dotted var(--line-strong); }
-        .r-art { display: block; width: 100%; height: auto; overflow: visible; }
-        .r-art * { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-        .r-art text { fill: var(--ink-3); stroke: none; font-family: var(--italic); font-style: italic; font-size: 12px; }
-        .r-fig figcaption { margin-top: 8px; font-family: var(--italic); font-style: italic; font-size: .98rem; color: var(--ink-3); }
-        .r-card:not(.in) .r-art * { animation-play-state: paused; }
-
-        .r-art .draw { stroke-dasharray: 300; stroke-dashoffset: 300; transition: stroke-dashoffset 1.6s cubic-bezier(.6,.1,.3,1) .3s; }
-        .r-card.in .r-art .draw { stroke-dashoffset: 0; }
-        .r-art .bond { stroke: var(--ink-3); stroke-width: 1.2; }
-
-        /* Fig. 1: spins flip in a wave that travels along the chain */
-        .r-art .sites circle { fill: var(--ink); stroke: none; }
-        .r-art .arrows * { stroke-width: 2.2; }
-        .r-art .spin { transform-box: view-box; transform-origin: var(--x) 54px; animation: spinFlip 4.8s cubic-bezier(.65,0,.35,1) infinite; animation-delay: calc(var(--k) * .14s); }
-        @keyframes spinFlip { 0%, 30% { transform: rotate(0); } 50%, 80% { transform: rotate(180deg); } 100% { transform: rotate(360deg); } }
-
-        /* Fig. 2: a red two-site gate steps across the bonds and back */
-        .r-art .legs line { stroke-width: 1.6; }
-        .r-art .tensors circle { fill: var(--paper); stroke-width: 2; }
-        .r-art .gate { fill: var(--shu); stroke: none; opacity: .9; animation: gateSweep 8s ease-in-out infinite; }
-        @keyframes gateSweep {
-            0%, 9% { transform: translateX(0); }
-            12.5%, 21.5% { transform: translateX(48px); }
-            25%, 34% { transform: translateX(96px); }
-            37.5%, 46.5% { transform: translateX(144px); }
-            50%, 59% { transform: translateX(192px); }
-            62.5%, 71.5% { transform: translateX(144px); }
-            75%, 84% { transform: translateX(96px); }
-            87.5%, 96.5% { transform: translateX(48px); }
-            100% { transform: translateX(0); }
-        }
-
-        /* Fig. 3: drive and response scroll together; the response repeats every two drive periods */
-        .r-art .drive { stroke: var(--ink-3); stroke-width: 1.4; }
-        .r-art .resp { stroke: var(--shu); stroke-width: 2.4; }
-        .r-art .slide { animation: waveSlide 4s linear infinite; }
-        @keyframes waveSlide { to { transform: translateX(-80px); } }
-
-        /* Fig. 4: signal pulses move through the layers */
-        .r-art .edges line { stroke: var(--ink-3); stroke-width: .9; stroke-dasharray: 3 7; animation: flow 1.6s linear infinite; }
-        @keyframes flow { to { stroke-dashoffset: -20; } }
-        .r-art .nodes circle { fill: var(--paper); stroke-width: 1.8; animation: fire 3.2s ease-in-out infinite; animation-delay: calc(var(--l) * .45s); }
-        @keyframes fire { 0%, 60%, 100% { fill: var(--paper); } 15%, 30% { fill: var(--ink); } }
-
-        .r-card .r-num { font-family: var(--italic); font-style: italic; color: var(--shu); font-size: 1.1rem; }
-        .r-card h3 { font-size: 1.35rem; font-weight: 700; margin: 4px 0 16px; }
-        .r-card ul { list-style: none; }
-        .r-card li { position: relative; padding: 5px 0 5px 26px; color: var(--ink-2); border-bottom: 1px dotted var(--line); }
-        .r-card li:last-child { border-bottom: none; }
-        .r-card li::before {
-            /* tiny open ensō as a bullet */
-            content: ''; position: absolute; left: 4px; top: 50%; width: 10px; height: 10px; margin-top: -5px;
-            border-radius: 50%; border: 2px solid var(--ink); border-right-color: transparent; transform: rotate(30deg);
-        }
-
-        /* ---------- Education ---------- */
-        .timeline { position: relative; padding-left: 52px; }
-        .timeline::before { content: ''; position: absolute; left: 15px; top: 10px; bottom: 10px; width: 1px; background: var(--line); }
-        .timeline-progress { position: absolute; left: 13px; top: 10px; width: 5px; height: 0; background: var(--ink); border-radius: 3px; filter: url(#rough); }
-        .t-item { position: relative; margin-bottom: 26px; }
-        .t-item:last-child { margin-bottom: 0; }
-        .t-dot {
-            position: absolute; left: -44px; top: 34px; width: 16px; height: 16px; border-radius: 50%;
-            background: var(--ink); box-shadow: 0 0 0 5px var(--paper), 0 0 0 6px var(--line-strong);
-        }
-        .t-item.alt .t-dot { background: var(--shu); }
-        .t-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-        .t-title { font-size: 1.3rem; font-weight: 700; }
-        .t-badge { font-family: var(--italic); font-style: italic; font-size: 1rem; color: var(--ink-3); }
-        .t-item.alt .t-badge { color: var(--shu); }
-        .t-inst { color: var(--ink-3); margin-top: 2px; }
-        .t-body { margin-top: 14px; color: var(--ink-2); }
-        .t-body p { margin-top: 12px; }
-
-        /* ---------- Publications ---------- */
-        .pub-filters { display: flex; gap: 22px; flex-wrap: wrap; margin-bottom: 26px; }
-        .filter, .news-tab {
-            background: none; border: none; cursor: pointer; padding: 4px 2px; position: relative;
-            font-family: var(--italic); font-style: italic; font-size: 1.15rem; color: var(--ink-3); transition: color .3s;
-        }
-        .filter::after, .news-tab::after {
-            content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--ink); border-radius: 2px;
-            filter: url(#rough); transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.6,.1,.3,1);
-        }
-        .filter:hover, .filter.active, .news-tab:hover, .news-tab.active { color: var(--ink); }
-        .filter.active::after, .news-tab.active::after { transform: scaleX(1); }
-        .news-tabs { display: flex; gap: 26px; margin-bottom: 22px; }
-        .news-tab { font-family: var(--serif); font-style: normal; font-size: 1.25rem; font-weight: 700; }
-        .news-item.hidden { display: none; }
-
-        .pub-list { list-style: none; border-top: 1.5px solid var(--ink); }
-        .pub {
-            display: grid; grid-template-columns: 64px 1fr; gap: 22px; padding: 28px 8px;
-            border-bottom: 1px solid var(--line); transition: background .4s;
-        }
-        .pub:hover { background: var(--wash); }
-        .pub.hidden { display: none; }
-        .pub-idx { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 2.3rem; line-height: 1; color: var(--ink-3); transition: color .4s; }
-        .pub:hover .pub-idx { color: var(--shu); }
-        .pub-title { font-size: 1.2rem; font-weight: 700; line-height: 1.45; }
-        .pub-authors { color: var(--ink-2); margin-top: 6px; }
-        .pub-authors .me { color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--shu); text-decoration-thickness: 2px; text-underline-offset: 4px; }
-        .pub-venue { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; font-family: var(--italic); font-style: italic; font-size: 1.08rem; color: var(--ink-2); }
-        .pub-venue a { color: var(--ink); border-bottom: 1px solid var(--ink-3); font-style: normal; font-family: var(--serif); font-size: .92rem; }
-        .pub-venue a:hover { border-bottom-color: var(--shu); color: var(--shu); }
-        .tag {
-            font-family: var(--serif); font-style: normal; font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-            padding: 2px 9px; border: 1px solid var(--ink); border-radius: 2px;
-        }
-        .tag.journal { background: var(--ink); color: var(--paper); }
-        .tag.progress { border-color: var(--shu); color: var(--shu); }
-        .pub-abs { color: var(--ink-2); margin-top: 10px; font-size: .97rem; }
-
-        /* ---------- Skills ---------- */
-        .skills-table { border-top: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); }
-        .skill-row {
-            display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: baseline;
-            padding: 18px 8px; border-bottom: 1px solid var(--line);
-        }
-        .skill-row:last-child { border-bottom: none; }
-        .skill-row h3 { display: flex; align-items: baseline; gap: 12px; font-size: 1.08rem; font-weight: 700; }
-        .skill-row h3 i { width: 18px; font-size: .9rem; color: var(--shu); }
-        .skill-row ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 0; color: var(--ink-2); font-size: 1.02rem; }
-        .skill-row li:not(:last-child)::after { content: '·'; margin: 0 12px; color: var(--ink-3); }
-
-        .marquee {
-            margin-top: 50px; overflow: hidden; border-top: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink);
-            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-            -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-        }
-        .marquee-track { display: flex; width: max-content; padding: 16px 0; animation: marquee 48s linear infinite; }
-        .marquee:hover .marquee-track { animation-play-state: paused; }
-        .marquee-track span { font-family: var(--italic); font-style: italic; font-size: 1.6rem; color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; }
-        .marquee-track span::after { content: ''; width: 8px; height: 8px; border: 1.5px solid var(--shu); border-radius: 50%; margin: 0 36px; }
-        @keyframes marquee { to { transform: translateX(-50%); } }
-
-        .awards { margin-top: 30px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .award { display: flex; gap: 18px; align-items: center; }
-        .award .badge {
-            width: 54px; height: 54px; flex-shrink: 0; border-radius: 50%; border: 1.5px solid var(--shu); color: var(--shu);
-            display: grid; place-items: center; font-size: 1.2rem;
-        }
-        .award b { display: block; font-weight: 700; }
-        .award span { font-family: var(--italic); font-style: italic; color: var(--ink-3); font-size: 1.02rem; }
-
-        /* ---------- Contact ---------- */
-        .contact { text-align: center; padding: 70px clamp(20px, 5vw, 70px); }
-        .contact .enso { width: 120px; height: 120px; margin: 0 auto 10px; display: block; overflow: visible; }
-        .contact .enso .enso-path { stroke-dasharray: 560; stroke-dashoffset: 560; transition: stroke-dashoffset 1.8s cubic-bezier(.65,.05,.3,1) .2s; }
-        .contact.in .enso .enso-path { stroke-dashoffset: 0; }
-        .contact h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.3; }
-        .contact h2 em { font-family: var(--italic); font-weight: 500; }
-        .contact p { color: var(--ink-2); max-width: 560px; margin: 14px auto 30px; }
-        .contact .actions { justify-content: center; margin-top: 0; }
-
-        footer {
-            max-width: 1080px; margin: 90px auto 0; padding: 30px clamp(18px, 4vw, 40px) 46px;
-            display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px;
-            border-top: 1.5px solid var(--ink); color: var(--ink-3); font-size: .9rem;
-        }
-        footer kbd { font-family: var(--serif); font-size: .78rem; border: 1px solid var(--line-strong); border-bottom-width: 2px; padding: 0 6px; border-radius: 3px; }
-
-        .to-top {
-            position: fixed; right: 22px; bottom: 22px; z-index: 900; width: 48px; height: 48px; border-radius: 50%;
-            background: var(--ink); color: var(--paper); border: none; cursor: pointer; font-size: 1rem;
-            opacity: 0; pointer-events: none; transform: translateY(12px); transition: all .4s;
-        }
-        .to-top.show { opacity: 1; pointer-events: auto; transform: none; }
-        .to-top:hover { background: var(--shu); }
-
-        /* ---------- Responsive ---------- */
-        @media (max-width: 960px) {
-            .hero { grid-template-columns: 1fr; gap: 26px; padding-top: calc(var(--nav-h) + 24px); }
-            .hero-visual { order: -1; }
-            .portrait-wrap { width: min(290px, 70vw); }
-            .hero-tate, .scroll-hint { display: none; }
-            .about-grid, .research-grid { grid-template-columns: 1fr; }
-            .skill-row { grid-template-columns: 220px 1fr; }
-        }
-
-        @media (max-width: 880px) {
-            .menu-btn { display: grid; place-items: center; }
-            .nav-links {
-                position: fixed; top: var(--nav-h); left: 0; right: 0; flex-direction: column; gap: 0;
-                padding: 8px 18px 20px; background: rgba(243, 236, 223, .98); box-shadow: 0 1px 0 var(--line);
-                transform: translateY(-120%); opacity: 0; pointer-events: none; transition: transform .45s ease, opacity .45s ease;
-            }
-            .nav-links.open { transform: none; opacity: 1; pointer-events: auto; }
-            .nav-links a { flex-direction: row; gap: 14px; align-items: baseline; padding: 12px 4px; font-size: 1rem; }
-            .nav-links a::after { left: 4px; right: auto; width: 50px; }
-        }
-
-        @media (max-width: 640px) {
-            .section { padding-top: 90px; }
-            .brand .wordmark { font-size: .8rem; letter-spacing: .1em; }
-            .seal { width: 54px; height: 54px; font-size: 1.05rem; right: 0; }
-            .stats-inner { grid-template-columns: repeat(2, 1fr); }
-            .stat:nth-child(3) { border-left: none; }
-            .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
-            .awards { grid-template-columns: 1fr; }
-            .skill-row { grid-template-columns: 1fr; gap: 8px; }
-            .news-item { grid-template-columns: 1fr; gap: 6px; }
-            .pub { grid-template-columns: 1fr; gap: 6px; }
-            .sheet { padding: 22px 20px; }
-            .kv { grid-template-columns: 1fr; gap: 0; }
-            .kv dd { margin-bottom: 8px; }
-            .timeline { padding-left: 44px; }
-            .t-dot { left: -37px; }
-            .watermark { font-size: 6.5rem; }
-            .portrait-caption { right: -2%; font-size: 1.1rem; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; animation-delay: 0s !important; }
-            html { scroll-behavior: auto; }
-            .reveal { opacity: 1; transform: none; filter: none; }
-        }
-    </style>
+  @media (max-width: 900px) {
+    main { padding: 2.5rem 1.5rem 3rem; }
+    .top { grid-template-columns: 1fr; gap: 1.75rem; }
+    .id { display: flex; gap: 1.5rem; align-items: center; }
+    .id img { width: 140px; height: 140px; margin: 0; flex-shrink: 0; }
+    .figs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .figs { grid-auto-flow: dense; }
+    .figs .span2 { grid-column: 1 / -1; }
+    .cols { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    main { padding: 2rem 1.25rem 3rem; }
+    .theme { position: absolute; }
+    .id { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .id img { width: 120px; height: 120px; }
+    .figs { grid-template-columns: 1fr; }
+    dl { grid-template-columns: 1fr; gap: 0; }
+    dd { margin-bottom: .6rem; }
+  }
+</style>
 </head>
 <body>
-    <!-- Shared SVG filters: "rough" frays stroke edges like ink on washi, "seal" makes the monogram look stamped -->
-    <svg class="defs" aria-hidden="true">
-        <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="7" result="n"/>
-            <feDisplacementMap in="SourceGraphic" in2="n" scale="5"/>
-        </filter>
-        <filter id="seal">
-            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="g"/>
-            <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.6" result="mask"/>
-            <feComposite in="SourceGraphic" in2="mask" operator="in" result="speckled"/>
-            <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="9" result="n2"/>
-            <feDisplacementMap in="speckled" in2="n2" scale="3"/>
-        </filter>
-    </svg>
 
-    <div class="loader" id="loader" aria-hidden="true">
-        <svg viewBox="0 0 200 200"><path class="enso-path" stroke-width="13" d="M120 28 C 62 18, 22 62, 30 112 C 38 160, 96 186, 142 160 C 182 136, 184 78, 150 48"/></svg>
-        <div class="loader-mark">MR</div>
+<button class="theme" id="theme" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+  <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2.5M12 20v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M1.5 12H4M20 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+</button>
+
+<main>
+
+<div class="top">
+  <div class="id">
+    <img src="mahbub_new.jpeg" alt="Photo of Mahbub Rahaman">
+    <div>
+      <h1>Mahbub Rahaman</h1>
+      <p>Postdoctoral Fellow</p>
+      <p>Department of Physics</p>
+      <p>Harish-Chandra Research Institute</p>
+      <p>Prayagraj 211019, India</p>
+      <p><a href="mailto:mahbub.phys@gmail.com">mahbub.phys@gmail.com</a></p>
+      <p class="links">
+        <a href="https://scholar.google.com/citations?user=MglB6PoAAAAJ&amp;hl=en">Google Scholar</a> &middot;
+        <a href="https://arxiv.org/a/rahaman_m_3">arXiv</a> &middot;
+        <a href="https://orcid.org/0000-0002-7455-2364">ORCID</a> &middot;
+        <a href="https://github.com/rahmahi">GitHub</a> &middot;
+        <a href="https://www.researchgate.net/profile/Mahbub-Rahaman">ResearchGate</a> &middot;
+        <a href="http://academictree.org/physics/tree.php?pid=958625&amp;pnodecount=5&amp;cnodecount=3&amp;fontsize=1">Academic Tree</a>
+      </p>
     </div>
+  </div>
 
-    <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="bio">
+    <p>I am a postdoctoral fellow at the Harish-Chandra Research Institute (HRI), Prayagraj, where I work with Dr. Sayan Choudhury under India's National Quantum Mission. I received my Ph.D. in physics from the University of Burdwan in 2025, advised by Dr. Analabha Roy.</p>
+    <p>My research is in non-equilibrium quantum many-body physics. I study how isolated quantum systems thermalize and the routes by which they can avoid it, such as many-body localization, quantum scars and Hilbert-space fragmentation. Much of this work is on periodically driven (Floquet) systems and the phases they host, including discrete time crystals and chimera-like states. I am also interested in topological phases of matter, quantum metrology and neural-network methods for many-body problems.</p>
+    <p>My work is mostly analytical, combined with numerical simulation. Analytical work is how I understand the physics of a problem: which mechanism is responsible, and why. Numerical simulation is how I find out whether that understanding is actually true, since interacting many-body systems rarely allow exact solutions.</p>
+  </div>
+</div>
 
-    <nav class="nav" id="nav">
-        <a href="#home" class="brand" aria-label="Home"><span class="seal-sm">MR</span><span class="wordmark">Mahbub Rahaman</span></a>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#about"><span class="kn">I</span>About</a></li>
-            <li><a href="#news"><span class="kn">II</span>News</a></li>
-            <li><a href="#research"><span class="kn">III</span>Research</a></li>
-            <li><a href="#publications"><span class="kn">IV</span>Publications</a></li>
-            <li><a href="#skills"><span class="kn">V</span>Skills</a></li>
-            <li><a href="#education"><span class="kn">VI</span>Education</a></li>
-        </ul>
-        <button class="menu-btn" id="menuBtn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
-    </nav>
+<section id="research">
+<h2>Research</h2>
+<div class="figs">
+  <figure>
+    <canvas id="fig-therm" role="img" aria-label="Animated plot of the imbalance over time for a thermalizing system, a many-body localized system and a system with quantum scars."></canvas>
+    <figcaption><b>Thermalization and how to evade it.</b> Memory of an initial Néel pattern: lost when the system thermalizes, partly kept under many-body localization, and revived by quantum scars (schematic).</figcaption>
+  </figure>
+  <figure>
+    <canvas id="fig-floquet" role="img" aria-label="Animated Bloch sphere showing a spin driven by a periodic field, with stroboscopic points lying on a circle."></canvas>
+    <figcaption><b>Floquet driving.</b> Sampled once per period (dots), a driven spin circles a fixed Floquet axis.</figcaption>
+  </figure>
+  <figure>
+    <canvas id="fig-dtc" role="img" aria-label="Animated spin chain flipping every drive period, with a plot of stroboscopic magnetization showing period doubling."></canvas>
+    <figcaption><b>Discrete time crystal.</b> Interactions lock the spins to twice the drive period (blue); without them the signal beats (gray).</figcaption>
+  </figure>
+  <figure class="span2">
+    <canvas id="fig-qc" role="img" aria-label="Animated diagram: a kicked Ising spin chain mapped onto a quantum circuit. Each drive period is one layer of single-qubit rotations and two-qubit ZZ gates, repeated n times and then measured; the measured magnetization alternates sign every period."></canvas>
+    <figcaption><b>Driven spin chains on a quantum computer.</b> Each spin becomes a qubit and one drive period becomes one layer of gates: single-qubit rotations for the kick, two-qubit ZZ gates for the interactions. Repeating the layer n times and measuring gives the stroboscopic dynamics, here the period doubling of a time crystal, damped by hardware noise.</figcaption>
+  </figure>
+  <figure>
+    <canvas id="fig-sense" role="img" aria-label="Animated Ramsey sequence with a phase dial: a single spin and an entangled GHZ state accumulate phase, the entangled one N times faster. A log-log plot shows the uncertainty falling as 1 over square root of N at the standard quantum limit and as 1 over N at the Heisenberg limit."></canvas>
+    <figcaption><b>Quantum sensing.</b> In a Ramsey sequence, entangled (GHZ) probes pick up a field's phase N times faster than independent spins, beating the standard quantum limit 1/√N toward the Heisenberg limit 1/N.</figcaption>
+  </figure>
+</div>
+</section>
 
-    <main>
-        <!-- HERO -->
-        <header class="hero" id="home">
-            <div class="hero-tate">Quantum Many-Body Physics</div>
-            <div class="hero-mark" aria-hidden="true">ψ</div>
-            <div class="hero-text">
-                <div class="hero-kicker rise" style="animation-delay:1.3s">Theoretical Physicist &mdash; Postdoctoral Fellow</div>
-                <h1 class="hero-name rise" style="animation-delay:1.45s">
-                    <span class="row">Mahbub</span>
-                    <span class="row">Rahaman</span>
-                    <span class="seal" aria-hidden="true">MR</span>
-                </h1>
-                <div class="verse rise" style="animation-delay:1.6s"><span class="dash">—</span><span id="role">studying quantum matter far from equilibrium</span></div>
-                <div class="hero-meta rise" style="animation-delay:1.75s">
-                    <div><i class="fas fa-landmark"></i><span>Department of Physics, <strong>Harish-Chandra Research Institute</strong></span></div>
-                    <div><i class="fas fa-location-dot"></i><span>Prayagraj (Allahabad), Uttar Pradesh, India</span></div>
-                    <div><i class="fas fa-feather"></i><span>National Quantum Mission, India — 211019</span></div>
-                </div>
-                <div class="actions rise" style="animation-delay:1.9s">
-                    <a class="btn solid" href="#publications">View Publications</a>
-                    <a class="btn" href="mailto:mahbub.phys@gmail.com">Get in touch</a>
-                </div>
-                <div class="socials rise" style="animation-delay:2s">
-                    <a href="mailto:mahbub.phys@gmail.com" data-tip="Email" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                    <a href="https://github.com/rahmahi" target="_blank" rel="noopener" data-tip="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://orcid.org/0000-0002-7455-2364" target="_blank" rel="noopener" data-tip="ORCID" aria-label="ORCID"><i class="fab fa-orcid"></i></a>
-                    <a href="http://arxiv.org/a/rahaman_m_3" target="_blank" rel="noopener" data-tip="arXiv" aria-label="arXiv"><span class="ax">arXiv</span></a>
-                    <a href="https://scholar.google.com/citations?user=MglB6PoAAAAJ&hl=en&authuser=2" target="_blank" rel="noopener" data-tip="Google Scholar" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
-                    <a href="https://www.researchgate.net/profile/Mahbub-Rahaman?ev=hdr_xprf3" target="_blank" rel="noopener" data-tip="ResearchGate" aria-label="ResearchGate"><i class="fab fa-researchgate"></i></a>
-                    <a href="http://academictree.org/physics/tree.php?pid=958625&pnodecount=5&cnodecount=3&fontsize=1" target="_blank" rel="noopener" data-tip="Academic Genealogy" aria-label="Academic Genealogy"><i class="fas fa-sitemap"></i></a>
-                </div>
-            </div>
-            <div class="hero-visual rise" style="animation-delay:1.1s">
-                <div class="portrait-wrap" id="portrait">
-                    <div class="portrait"><img src="mahbub.png" alt="Portrait of Mahbub Rahaman"></div>
-                    <svg class="enso" viewBox="0 0 400 400" aria-hidden="true">
-                        <path class="enso-path" stroke-width="22" d="M232 22 C 120 6, 30 82, 26 196 C 22 302, 112 380, 214 376 C 316 372, 384 290, 376 190 C 370 118, 330 66, 272 42"/>
-                        <path class="enso-path enso-thin" d="M240 34 C 140 22, 52 92, 46 192 C 40 290, 118 362, 210 360"/>
-                    </svg>
-                    <div class="portrait-caption">Time Crystals</div>
-                </div>
-            </div>
-            <div class="scroll-hint">scroll<span></span></div>
-        </header>
+<div class="cols">
+<div>
 
-        <!-- STATS -->
-        <div class="stats reveal">
-            <div class="stats-inner">
-                <div class="stat"><div class="stat-num" data-count="3">0</div><div class="stat-label">journal articles</div></div>
-                <div class="stat"><div class="stat-num" data-count="2">0</div><div class="stat-label">arXiv preprints</div></div>
-                <div class="stat"><div class="stat-num" data-count="2025">0</div><div class="stat-label">Ph.D. in Physics</div></div>
-                <div class="stat"><div class="stat-num" data-count="7" data-suffix="+">0</div><div class="stat-label">languages &amp; tools</div></div>
-            </div>
-        </div>
+<section id="publications">
+<h2>Publications</h2>
+<div class="tablist" role="tablist" aria-label="Publications by area">
+  <button type="button" role="tab" id="tab-pphys" aria-controls="pubs-physics" aria-selected="true">Physics</button>
+  <button type="button" role="tab" id="tab-pother" aria-controls="pubs-others" aria-selected="false">Others</button>
+</div>
+<div role="tabpanel" id="pubs-physics" aria-labelledby="tab-pphys">
+  <h3>Journal articles</h3>
+  <ol>
+    <li><b>M. Rahaman</b> and A. Roy, “Discrete time crystal order in spin chains enabled by Floquet flat bands,” <i>Phys. Rev. B</i> 114, 034311 (2026).
+      <a href="https://doi.org/10.1103/rzj3-fb2n">DOI</a> &middot; <a href="https://arxiv.org/abs/2603.14307">arXiv</a></li>
+    <li><b>M. Rahaman</b>, A. Sakurai and A. Roy, “Time crystal embodies chimeralike state in periodically driven quantum spin system,” <i>New J. Phys.</i> 26, 063035 (2024).
+      <a href="https://doi.org/10.1088/1367-2630/ad5757">DOI</a></li>
+    <li><b>M. Rahaman</b>, T. Mori and A. Roy, “Phase crossover induced by dynamical many-body localization in periodically driven long-range spin systems,” <i>Phys. Rev. B</i> 109, 104311 (2024).
+      <a href="https://doi.org/10.1103/PhysRevB.109.104311">DOI</a></li>
+    <li>S. K. Mondal, S. Pal, A. Sen, <b>M. Rahaman</b> and S. K. Midya, “Long-lasting disturbances in the mid-latitude sub-ionospheric VLF radio signals due to the super geomagnetic storm of 17 March 2015,” <i>Adv. Space Res.</i> 68, 2295–2308 (2021).
+      <a href="https://doi.org/10.1016/j.asr.2021.04.044">DOI</a></li>
+  </ol>
+  <h3>Preprints</h3>
+  <ol>
+    <li>R. Chandra, <b>M. Rahaman</b>, S. Majumdar, A. Roy and S. Sarkar, “Integrable Floquet time crystals in one dimension,” under review (2025).
+      <a href="https://arxiv.org/abs/2510.04326">arXiv:2510.04326</a></li>
+  </ol>
+  <h3>In preparation</h3>
+  <ol>
+    <li><b>M. Rahaman</b>, S. Majumdar and A. Roy, “Quantum heat engine in DMBL-constrained periodically driven clean spin chain.”</li>
+  </ol>
+</div>
+<div role="tabpanel" id="pubs-others" aria-labelledby="tab-pother" hidden>
+  <h3 class="nojs">Others</h3>
+  <ol>
+    <!-- Add papers outside physics here as <li> items. The "Others" tab appears by itself once this list has an entry. -->
+  </ol>
+</div>
+</section>
 
-        <!-- ABOUT -->
-        <section class="section" id="about">
-            <div class="watermark" aria-hidden="true">I</div>
-            <div class="section-head reveal">
-                <span class="eyebrow"><span class="num">I.</span>About</span>
-                <h2 class="section-title">Probing quantum matter <em>far from equilibrium</em></h2>
-                <svg class="stroke" viewBox="0 0 240 22"><path d="M4 14 C 50 6, 120 18, 236 8"/></svg>
-            </div>
-            <div class="about-grid">
-                <div class="about-text reveal">
-                    <p>I am a <strong>theoretical physicist</strong> specializing in quantum statistical mechanics and many-body physics. My research focuses on the intersection of quantum localization phenomena, periodically driven systems, and exotic phases of matter. I work extensively with tensor network methods, quantum simulation, and computational approaches to understand complex quantum systems.</p>
-                    <p>Currently, I am exploring <strong>quantum neural networks</strong> and their applications in many-body physics, alongside investigating novel phenomena such as quantum scars, time crystals, and quantum chimera states. My work bridges theoretical understanding with computational implementation, utilizing advanced numerical methods and high-performance computing resources.</p>
-                    <p>I am passionate about the intersection of quantum physics and emerging technologies, particularly in quantum computing and machine learning applications. My research contributes to understanding fundamental quantum phenomena while exploring their potential technological applications.</p>
-                </div>
-                <div class="sheet glance reveal" style="--d:.15s">
-                    <h3>At a glance</h3>
-                    <dl class="kv">
-                        <dt>Position</dt><dd>Postdoctoral Fellow, HRI</dd>
-                        <dt>Field</dt><dd>Quantum many-body physics</dd>
-                        <dt>Focus</dt><dd>Floquet systems, time crystals, many-body localization, QNN</dd>
-                        <dt>Tools</dt><dd>Julia, Python, QuTiP, Quimb</dd>
-                        <dt>Ph.D.</dt><dd>The University of Burdwan</dd>
-                    </dl>
-                </div>
-            </div>
-        </section>
+<section>
+<h2>Positions and education</h2>
+<ul>
+  <li>Postdoctoral Fellow, Harish-Chandra Research Institute, 2025–present
+    <span class="sub">Quantum sensing and metrology, non-equilibrium many-body dynamics. Mentor: Sayan Choudhury.</span></li>
+  <li>Ph.D. in Physics, The University of Burdwan, 2025
+    <span class="sub">Thesis: Symmetry Breaking and Quantum Localization in Periodically Driven Many-Body Systems. Advisor: Analabha Roy.</span></li>
+  <li>M.Sc. in Physics (specialization: Electronics)
+    <span class="sub">Dissertation: Response of very low frequency (VLF) waves to solar flares of varying strengths at different times of the day. Advisor: Sushanta K. Mondal.</span></li>
+  <li>B.Sc. (Honours) in Physics</li>
+  <li>Summer School in Quantum Information and Technology, IISER Kolkata, June–July 2021</li>
+</ul>
+</section>
 
-        <!-- NEWS -->
-        <section class="section" id="news">
-            <div class="watermark" aria-hidden="true">II</div>
-            <div class="section-head reveal">
-                <span class="eyebrow"><span class="num">II.</span>Recent News</span>
-                <h2 class="section-title">Latest <em>updates</em></h2>
-                <svg class="stroke" viewBox="0 0 240 22"><path d="M4 10 C 70 18, 150 4, 236 12"/></svg>
-            </div>
-            <div class="news-tabs reveal" role="tablist">
-                <button class="news-tab active" data-year="2026" role="tab">2026</button>
-                <button class="news-tab" data-year="2025" role="tab">2025</button>
-                <button class="news-tab" data-year="2024" role="tab">2024</button>
-            </div>
-            <ul class="news-list">
-                <li class="news-item reveal" data-year="2026">
-                    <div class="news-date">2026</div>
-                    <div class="news-content">Published "Discrete time crystal order in spin chains enabled by Floquet flat bands" in <em>Physical Review B</em>.</div>
-                </li>
-                <li class="news-item reveal" data-year="2026">
-                    <div class="news-date">2026</div>
-                    <div class="news-content">Peer-reviewed research article in <em>Journal of Physics: Condensed Matter</em> (IOPscience).</div>
-                </li>
-                <li class="news-item reveal" data-year="2026">
-                    <div class="news-date">2026</div>
-                    <div class="news-content">Proposed a novel approach to obtain a Discrete Time Crystal in a clean system, powered by dynamical localization induced by a two-tone driven flat-band protocol. Preprint available at <a href="https://arxiv.org/abs/2603.14307" target="_blank" rel="noopener">arXiv:2603.14307</a>.</div>
-                </li>
-                <li class="news-item reveal hidden" data-year="2025">
-                    <div class="news-date">2025</div>
-                    <div class="news-content">Completed first collaborative (non-1st author) research article "Integrable Floquet time crystals in one dimension" and submitted to <em>Physical Review B</em>.</div>
-                </li>
-                <li class="news-item reveal hidden" data-year="2025">
-                    <div class="news-date">2025</div>
-                    <div class="news-content">Joined Harish-Chandra Research Institute as a Postdoctoral Fellow in a National Quantum Mission project powered by Govt. of India.</div>
-                </li>
-                <li class="news-item reveal hidden" data-year="2025">
-                    <div class="news-date">2025</div>
-                    <div class="news-content">Successfully defended PhD thesis "Symmetry Breaking and Quantum Localization in Periodically Driven Many-Body Systems".</div>
-                </li>
-                <li class="news-item reveal hidden" data-year="2024">
-                    <div class="news-date">2024</div>
-                    <div class="news-content">Published "Time crystal embodies chimera in periodically driven quantum spin system" in <em>New Journal of Physics</em>.</div>
-                </li>
-                <li class="news-item reveal hidden" data-year="2024">
-                    <div class="news-date">2024</div>
-                    <div class="news-content">Published research on phase crossover in dynamical many-body localization in <em>Physical Review B</em>.</div>
-                </li>
-            </ul>
-        </section>
+</div>
+<aside>
 
-        <!-- RESEARCH -->
-        <section class="section" id="research">
-            <div class="watermark" aria-hidden="true">III</div>
-            <div class="section-head reveal">
-                <span class="eyebrow"><span class="num">III.</span>Research</span>
-                <h2 class="section-title">Research <em>interests</em></h2>
-                <svg class="stroke" viewBox="0 0 240 22"><path d="M4 12 C 60 4, 140 20, 236 10"/></svg>
-            </div>
-            <div class="research-grid">
-                <div class="sheet r-card reveal">
-                    <figure class="r-fig">
-                    <svg class="r-art" viewBox="0 0 320 108" aria-hidden="true">
-                        <line class="bond draw" x1="20" y1="54" x2="300" y2="54"/>
-                        <g class="arrows"><g class="spin" style="--x:34px; --k:0"><line x1="34" y1="70" x2="34" y2="38"/><path d="M28 45 L34 35 L40 45"/></g><g class="spin" style="--x:70px; --k:1"><g transform="rotate(180 70 54)"><line x1="70" y1="70" x2="70" y2="38"/><path d="M64 45 L70 35 L76 45"/></g></g><g class="spin" style="--x:106px; --k:2"><line x1="106" y1="70" x2="106" y2="38"/><path d="M100 45 L106 35 L112 45"/></g><g class="spin" style="--x:142px; --k:3"><g transform="rotate(180 142 54)"><line x1="142" y1="70" x2="142" y2="38"/><path d="M136 45 L142 35 L148 45"/></g></g><g class="spin" style="--x:178px; --k:4"><line x1="178" y1="70" x2="178" y2="38"/><path d="M172 45 L178 35 L184 45"/></g><g class="spin" style="--x:214px; --k:5"><g transform="rotate(180 214 54)"><line x1="214" y1="70" x2="214" y2="38"/><path d="M208 45 L214 35 L220 45"/></g></g><g class="spin" style="--x:250px; --k:6"><line x1="250" y1="70" x2="250" y2="38"/><path d="M244 45 L250 35 L256 45"/></g><g class="spin" style="--x:286px; --k:7"><g transform="rotate(180 286 54)"><line x1="286" y1="70" x2="286" y2="38"/><path d="M280 45 L286 35 L292 45"/></g></g></g>
-                        <g class="sites"><circle cx="34" cy="54" r="3.2"/><circle cx="70" cy="54" r="3.2"/><circle cx="106" cy="54" r="3.2"/><circle cx="142" cy="54" r="3.2"/><circle cx="178" cy="54" r="3.2"/><circle cx="214" cy="54" r="3.2"/><circle cx="250" cy="54" r="3.2"/><circle cx="286" cy="54" r="3.2"/></g>
-                    </svg>
-                    <figcaption>Fig. 1 — Interacting spin-½ chain</figcaption>
-                </figure>
-                    <span class="r-num">i.</span>
-                    <h3>Quantum Many-Body Physics</h3>
-                    <ul>
-                        <li>Many-body statistical physics</li>
-                        <li>Phase transitions &amp; quantum criticality</li>
-                        <li>Exotic phases of matter</li>
-                        <li>Quantum entanglement &amp; correlation</li>
-                    </ul>
-                </div>
-                <div class="sheet r-card reveal" style="--d:.12s">
-                    <figure class="r-fig">
-                    <svg class="r-art" viewBox="0 0 320 108" aria-hidden="true">
-                        <line class="bond draw" x1="40" y1="44" x2="280" y2="44"/>
-                        <g class="legs"><line x1="40" y1="44" x2="40" y2="84"/><line x1="88" y1="44" x2="88" y2="84"/><line x1="136" y1="44" x2="136" y2="84"/><line x1="184" y1="44" x2="184" y2="84"/><line x1="232" y1="44" x2="232" y2="84"/><line x1="280" y1="44" x2="280" y2="84"/></g>
-                        <rect class="gate" x="28" y="64" width="72" height="14" rx="2"/>
-                        <g class="tensors"><circle cx="40" cy="44" r="11"/><circle cx="88" cy="44" r="11"/><circle cx="136" cy="44" r="11"/><circle cx="184" cy="44" r="11"/><circle cx="232" cy="44" r="11"/><circle cx="280" cy="44" r="11"/></g>
-                    </svg>
-                    <figcaption>Fig. 2 — Matrix product state with a two-site TEBD gate</figcaption>
-                </figure>
-                    <span class="r-num">ii.</span>
-                    <h3>Computational Methods</h3>
-                    <ul>
-                        <li>Tensor network methods (TEBD)</li>
-                        <li>QuTiP &amp; Qiskit frameworks</li>
-                        <li>Quantum Monte Carlo methods</li>
-                        <li>Parallel &amp; HPC computing</li>
-                    </ul>
-                </div>
-                <div class="sheet r-card reveal">
-                    <figure class="r-fig">
-                    <svg class="r-art" viewBox="0 0 320 108" aria-hidden="true">
-                        <defs><clipPath id="clipWave"><rect x="0" y="0" width="320" height="108"/></clipPath></defs>
-                        <g clip-path="url(#clipWave)">
-                            <path class="drive slide" d="M0 30 H10 V16 H30 V30 H50 V16 H70 V30 H90 V16 H110 V30 H130 V16 H150 V30 H170 V16 H190 V30 H210 V16 H230 V30 H250 V16 H270 V30 H290 V16 H310 V30 H330 V16 H350 V30 H370 V16 H390 V30 H410 V16 H430 V30 H440"/>
-                            <polyline class="resp slide" points="0,74.0 4,68.4 8,63.4 12,59.4 16,56.9 20,56.0 24,56.9 28,59.4 32,63.4 36,68.4 40,74.0 44,79.6 48,84.6 52,88.6 56,91.1 60,92.0 64,91.1 68,88.6 72,84.6 76,79.6 80,74.0 84,68.4 88,63.4 92,59.4 96,56.9 100,56.0 104,56.9 108,59.4 112,63.4 116,68.4 120,74.0 124,79.6 128,84.6 132,88.6 136,91.1 140,92.0 144,91.1 148,88.6 152,84.6 156,79.6 160,74.0 164,68.4 168,63.4 172,59.4 176,56.9 180,56.0 184,56.9 188,59.4 192,63.4 196,68.4 200,74.0 204,79.6 208,84.6 212,88.6 216,91.1 220,92.0 224,91.1 228,88.6 232,84.6 236,79.6 240,74.0 244,68.4 248,63.4 252,59.4 256,56.9 260,56.0 264,56.9 268,59.4 272,63.4 276,68.4 280,74.0 284,79.6 288,84.6 292,88.6 296,91.1 300,92.0 304,91.1 308,88.6 312,84.6 316,79.6 320,74.0 324,68.4 328,63.4 332,59.4 336,56.9 340,56.0 344,56.9 348,59.4 352,63.4 356,68.4 360,74.0 364,79.6 368,84.6 372,88.6 376,91.1 380,92.0 384,91.1 388,88.6 392,84.6 396,79.6 400,74.0 404,68.4 408,63.4 412,59.4 416,56.9 420,56.0 424,56.9 428,59.4 432,63.4 436,68.4 440,74.0"/>
-                        </g>
-                        <text x="4" y="47">↑ drive, period T</text>
-                        <text x="316" y="47" text-anchor="end">response, period 2T ↓</text>
-                    </svg>
-                    <figcaption>Fig. 3 — Period doubling: the signature of a discrete time crystal</figcaption>
-                </figure>
-                    <span class="r-num">iii.</span>
-                    <h3>Quantum Phenomena</h3>
-                    <ul>
-                        <li>Quantum scars &amp; Hilbert space fragmentation</li>
-                        <li>Time crystals &amp; chimera states</li>
-                        <li>Dynamical many-body localization</li>
-                        <li>Floquet engineering</li>
-                    </ul>
-                </div>
-                <div class="sheet r-card reveal" style="--d:.12s">
-                    <figure class="r-fig">
-                    <svg class="r-art" viewBox="0 0 320 108" aria-hidden="true">
-                        <g class="edges"><line x1="50" y1="24" x2="130" y2="16"/><line x1="50" y1="24" x2="130" y2="40"/><line x1="50" y1="24" x2="130" y2="68"/><line x1="50" y1="24" x2="130" y2="92"/><line x1="50" y1="54" x2="130" y2="16"/><line x1="50" y1="54" x2="130" y2="40"/><line x1="50" y1="54" x2="130" y2="68"/><line x1="50" y1="54" x2="130" y2="92"/><line x1="50" y1="84" x2="130" y2="16"/><line x1="50" y1="84" x2="130" y2="40"/><line x1="50" y1="84" x2="130" y2="68"/><line x1="50" y1="84" x2="130" y2="92"/><line x1="130" y1="16" x2="210" y2="16"/><line x1="130" y1="16" x2="210" y2="40"/><line x1="130" y1="16" x2="210" y2="68"/><line x1="130" y1="16" x2="210" y2="92"/><line x1="130" y1="40" x2="210" y2="16"/><line x1="130" y1="40" x2="210" y2="40"/><line x1="130" y1="40" x2="210" y2="68"/><line x1="130" y1="40" x2="210" y2="92"/><line x1="130" y1="68" x2="210" y2="16"/><line x1="130" y1="68" x2="210" y2="40"/><line x1="130" y1="68" x2="210" y2="68"/><line x1="130" y1="68" x2="210" y2="92"/><line x1="130" y1="92" x2="210" y2="16"/><line x1="130" y1="92" x2="210" y2="40"/><line x1="130" y1="92" x2="210" y2="68"/><line x1="130" y1="92" x2="210" y2="92"/><line x1="210" y1="16" x2="285" y2="38"/><line x1="210" y1="16" x2="285" y2="70"/><line x1="210" y1="40" x2="285" y2="38"/><line x1="210" y1="40" x2="285" y2="70"/><line x1="210" y1="68" x2="285" y2="38"/><line x1="210" y1="68" x2="285" y2="70"/><line x1="210" y1="92" x2="285" y2="38"/><line x1="210" y1="92" x2="285" y2="70"/></g>
-                        <g class="nodes"><circle cx="50" cy="24" r="7" style="--l:0"/><circle cx="50" cy="54" r="7" style="--l:0"/><circle cx="50" cy="84" r="7" style="--l:0"/><circle cx="130" cy="16" r="7" style="--l:1"/><circle cx="130" cy="40" r="7" style="--l:1"/><circle cx="130" cy="68" r="7" style="--l:1"/><circle cx="130" cy="92" r="7" style="--l:1"/><circle cx="210" cy="16" r="7" style="--l:2"/><circle cx="210" cy="40" r="7" style="--l:2"/><circle cx="210" cy="68" r="7" style="--l:2"/><circle cx="210" cy="92" r="7" style="--l:2"/><circle cx="285" cy="38" r="7" style="--l:3"/><circle cx="285" cy="70" r="7" style="--l:3"/></g>
-                    </svg>
-                    <figcaption>Fig. 4 — Information flowing through a layered network</figcaption>
-                </figure>
-                    <span class="r-num">iv.</span>
-                    <h3>Quantum Computing &amp; AI</h3>
-                    <ul>
-                        <li>Quantum computation &amp; simulation</li>
-                        <li>Quantum neural networks (QNN)</li>
-                        <li>Wavefunction network theory</li>
-                        <li>Deep learning applications</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+<section id="news">
+<h2>News</h2>
+<div class="tablist" role="tablist" aria-label="News by year">
+  <button type="button" role="tab" id="tab-n2026" aria-controls="news-2026" aria-selected="true">2026</button>
+  <button type="button" role="tab" id="tab-n2025" aria-controls="news-2025" aria-selected="false">2025</button>
+  <button type="button" role="tab" id="tab-n2024" aria-controls="news-2024" aria-selected="false">2024</button>
+</div>
+<div role="tabpanel" id="news-2026" aria-labelledby="tab-n2026">
+  <h3 class="nojs">2026</h3>
+  <ul>
+    <li>“Discrete time crystal order in spin chains enabled by Floquet flat bands” (with A. Roy) is published in <i>Physical Review B</i>.</li>
+    <li>Peer reviewed article in <i>Journal of Physics: Condensed Matter, IOP</i>.</li>
+  </ul>
+</div>
+<div role="tabpanel" id="news-2025" aria-labelledby="tab-n2025" hidden>
+  <h3 class="nojs">2025</h3>
+  <ul>
+    <li>“Integrable Floquet time crystals in one dimension” (with R. Chandra, S. Majumdar, A. Roy and S. Sarkar) is on arXiv and submitted to <i>Physical Review B</i>.</li>
+    <li>Joined HRI as a postdoctoral fellow on a National Quantum Mission project.</li>
+    <li>Defended my Ph.D. thesis, “Symmetry Breaking and Quantum Localization in Periodically Driven Many-Body Systems”.</li>
+  </ul>
+</div>
+<div role="tabpanel" id="news-2024" aria-labelledby="tab-n2024" hidden>
+  <h3 class="nojs">2024</h3>
+  <ul>
+    <li>“Time crystal embodies chimeralike state in periodically driven quantum spin system” (with A. Sakurai and A. Roy) is published in <i>New Journal of Physics</i>.</li>
+    <li>“Phase crossover induced by dynamical many-body localization in periodically driven long-range spin systems” (with T. Mori and A. Roy) is published in <i>Physical Review B</i>.</li>
+  </ul>
+</div>
+</section>
 
-        <!-- PUBLICATIONS -->
-        <section class="section" id="publications">
-            <div class="watermark" aria-hidden="true">IV</div>
-            <div class="section-head reveal">
-                <span class="eyebrow"><span class="num">IV.</span>Publications</span>
-                <h2 class="section-title">Selected <em>publications</em></h2>
-                <svg class="stroke" viewBox="0 0 240 22"><path d="M4 13 C 70 5, 130 17, 236 9"/></svg>
-            </div>
-            <div class="pub-filters reveal">
-                <button class="filter active" data-filter="all">All</button>
-                <button class="filter" data-filter="journal">Journal</button>
-                <button class="filter" data-filter="preprint">Preprint</button>
-                <button class="filter" data-filter="progress">In progress</button>
-            </div>
-            <ol class="pub-list">
-                <li class="pub reveal" data-type="journal">
-                    <div class="pub-idx">01</div>
-                    <div>
-                        <div class="pub-title">Discrete time crystal order in spin chains enabled by Floquet flat bands</div>
-                        <div class="pub-authors"><span class="me">Rahaman M</span> and Roy A.</div>
-                        <div class="pub-venue"><span class="tag journal">Journal</span><span>Physical Review B 114, 034311 (2026)</span></div>
-                        <p class="pub-abs">We investigate the emergence of discrete time crystal order in spin chains with Floquet flat bands, demonstrating the possibility of realizing such order in a controlled manner.</p>
-                    </div>
-                </li>
-                <li class="pub reveal" data-type="preprint">
-                    <div class="pub-idx">02</div>
-                    <div>
-                        <div class="pub-title">Integrable Floquet time crystals in one dimension</div>
-                        <div class="pub-authors">Chandra R, <span class="me">Rahaman M</span>, Majumdar S, Roy A and Sarkar S.</div>
-                        <div class="pub-venue"><span class="tag">Preprint</span><a href="https://doi.org/10.48550/arXiv.2510.04326" target="_blank" rel="noopener">arXiv:2510.04326 ↗</a><span>under peer review</span></div>
-                    </div>
-                </li>
-                <li class="pub reveal" data-type="journal">
-                    <div class="pub-idx">03</div>
-                    <div>
-                        <div class="pub-title">Phase crossover induced by dynamical many-body localization in periodically driven long-range spin systems</div>
-                        <div class="pub-authors"><span class="me">Rahaman M</span>, Mori T and Roy A.</div>
-                        <div class="pub-venue"><span class="tag journal">Journal</span><span>Physical Review B 109(10), 104311 (2024)</span></div>
-                        <p class="pub-abs">Comprehensive study of phase transitions in driven quantum systems, revealing crossover behavior between thermal and localized regimes using numerical analysis of the Inverse Participation Ratio.</p>
-                    </div>
-                </li>
-                <li class="pub reveal" data-type="journal">
-                    <div class="pub-idx">04</div>
-                    <div>
-                        <div class="pub-title">Time crystal embodies chimera in periodically driven quantum spin system</div>
-                        <div class="pub-authors"><span class="me">Rahaman M</span>, Sakurai A, and Roy A.</div>
-                        <div class="pub-venue"><span class="tag journal">Journal</span><span>New Journal of Physics 26, 063035 (2024)</span></div>
-                        <p class="pub-abs">Investigation of quantum mechanical chimera states characterized by the coexistence of coupled discrete time-crystalline order and dynamical localization in periodically driven spin-1/2 chains.</p>
-                    </div>
-                </li>
-                <li class="pub reveal" data-type="journal">
-                    <div class="pub-idx">05</div>
-                    <div>
-                        <div class="pub-title">Long-lasting disturbances in the mid-latitude sub-ionospheric VLF radio signals due to the super geomagnetic storm of 17 March 2015</div>
-                        <div class="pub-authors">Mondal, S. K., Pal, S., Sen, A., <span class="me">Rahaman, M.</span>, Midya, S. K.</div>
-                        <div class="pub-venue"><span class="tag journal">Journal</span><span>Advances in Space Research 68(6), 2295–2308 (2021)</span></div>
-                        <p class="pub-abs">Analysis of VLF wave propagation disturbances caused by major geomagnetic events, contributing to space weather research and ionospheric physics.</p>
-                    </div>
-                </li>
-                <li class="pub reveal" data-type="progress">
-                    <div class="pub-idx">06</div>
-                    <div>
-                        <div class="pub-title">Quantum heat engine in DMBL-constrained periodically driven clean spin chain</div>
-                        <div class="pub-authors"><span class="me">Rahaman M</span>, Majumdar S and Roy A.</div>
-                        <div class="pub-venue"><span class="tag progress">In progress</span><span>2025</span></div>
-                        <p class="pub-abs">Development of quantum thermodynamic engines utilizing dynamical many-body localization phenomena in driven quantum systems.</p>
-                    </div>
-                </li>
-            </ol>
-        </section>
+<section>
+<h2>Computing</h2>
+<dl>
+  <dt>Languages</dt><dd>Julia, Python, C, Fortran, Mathematica</dd>
+  <dt>Libraries</dt><dd>QuTiP, Quimb, Qiskit, NumPy, SciPy</dd>
+  <dt>Methods</dt><dd>Exact diagonalization, Krylov-Chebyshev method, Tensor networks (TEBD)</dd>
+  <dt>HPC</dt><dd>SLURM, PBS, PETSc, parallel computing on clusters</dd>
+</dl>
+</section>
 
-        <!-- SKILLS -->
-        <section class="section" id="skills">
-            <div class="watermark" aria-hidden="true">V</div>
-            <div class="section-head reveal">
-                <span class="eyebrow"><span class="num">V.</span>Skills</span>
-                <h2 class="section-title">Technical <em>craft</em></h2>
-                <svg class="stroke" viewBox="0 0 240 22"><path d="M4 11 C 50 18, 150 3, 236 12"/></svg>
-            </div>
-            <div class="skills-table reveal">
-                <div class="skill-row">
-                    <h3><i class="fas fa-code"></i> Programming Languages</h3>
-                    <ul><li>Julia</li><li>Python</li><li>C</li><li>FORTRAN</li><li>Mathematica</li><li>LaTeX</li><li>Unix shell</li></ul>
-                </div>
-                <div class="skill-row">
-                    <h3><i class="fas fa-atom"></i> Quantum Frameworks</h3>
-                    <ul><li>QuTiP</li><li>Quimb</li><li>Qiskit</li><li>QWorld</li><li>Tensor Networks</li><li>TEBD</li></ul>
-                </div>
-                <div class="skill-row">
-                    <h3><i class="fas fa-server"></i> High-Performance Computing</h3>
-                    <ul><li>SLURM</li><li>PBS</li><li>PETSc</li><li>Parallel computing</li><li>Cluster computing</li></ul>
-                </div>
-                <div class="skill-row">
-                    <h3><i class="fas fa-chart-line"></i> Data Analysis</h3>
-                    <ul><li>NumPy</li><li>SciPy</li><li>Matplotlib</li><li>Pandas</li><li>Scientific computing</li></ul>
-                </div>
-                <div class="skill-row">
-                    <h3><i class="fas fa-screwdriver-wrench"></i> Development Tools</h3>
-                    <ul><li>Git</li><li>Jupyter</li><li>VS Code</li><li>Vim</li><li>Spyder</li><li>Zotero</li></ul>
-                </div>
-                <div class="skill-row">
-                    <h3><i class="fas fa-desktop"></i> Operating Systems</h3>
-                    <ul><li>Ubuntu</li><li>Fedora</li><li>Raspberry Pi OS</li><li>Windows</li></ul>
-                </div>
-            </div>
+<section>
+<h2>Honours</h2>
+<ul class="dated">
+  <li><span>2019</span><span>Graduate Aptitude Test in Engineering (GATE)</span></li>
+  <li><span>2016</span><span>Anveshan Research Convention, East Zone</span></li>
+</ul>
+</section>
 
-            <div class="marquee reveal" aria-hidden="true">
-                <div class="marquee-track" id="marqueeTrack">
-                    <span>Floquet engineering</span><span>Discrete time crystals</span><span>Many-body localization</span><span>Tensor networks</span><span>Quantum scars</span><span>Hilbert space fragmentation</span><span>Quantum neural networks</span><span>Quantum metrology</span><span>Chimera states</span>
-                </div>
-            </div>
+<section>
+<h2>Hobbies</h2>
+<p>Away from physics, I enjoy travelling and hiking, painting, and meditation.</p>
+</section>
 
-            <div class="awards">
-                <div class="sheet award reveal"><span class="badge"><i class="fas fa-award"></i></span><div><b>Graduate Aptitude Test in Engineering (GATE)</b><span>India, 2019</span></div></div>
-                <div class="sheet award reveal" style="--d:.1s"><span class="badge"><i class="fas fa-award"></i></span><div><b>Anveshan: Research Convention</b><span>East Zone India, 2016</span></div></div>
-            </div>
-        </section>
+</aside>
+</div>
 
-        <!-- EDUCATION -->
-        <section class="section" id="education">
-            <div class="watermark" aria-hidden="true">VI</div>
-            <div class="section-head reveal">
-                <span class="eyebrow"><span class="num">VI.</span>Education</span>
-                <h2 class="section-title">Academic <em>path</em></h2>
-                <svg class="stroke" viewBox="0 0 240 22"><path d="M4 9 C 80 16, 160 6, 236 13"/></svg>
-            </div>
-            <div class="timeline" id="timeline">
-                <div class="timeline-progress" id="timelineProgress"></div>
+</main>
 
-                <div class="t-item reveal">
-                    <span class="t-dot"></span>
-                    <div class="sheet">
-                        <div class="t-head"><div class="t-title">Postdoctoral Fellow</div><span class="t-badge">present</span></div>
-                        <div class="t-inst">Harish-Chandra Research Institute, India</div>
-                        <div class="t-body">
-                            <dl class="kv">
-                                <dt>Specialization</dt><dd>Quantum Sensing &amp; Metrology</dd>
-                                <dt>Expertise</dt><dd>Quantum Many-body Physics, Non-Equilibrium Dynamics</dd>
-                                <dt>Advisor</dt><dd>Dr. Sayan Choudhury</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
+<script>
+(function () {
+  'use strict';
+  var root = document.documentElement;
+  var onThemeChange = function () {};
 
-                <div class="t-item reveal">
-                    <span class="t-dot"></span>
-                    <div class="sheet">
-                        <div class="t-head"><div class="t-title">Ph.D. in Physics</div><span class="t-badge">doctorate</span></div>
-                        <div class="t-inst">The University of Burdwan, India</div>
-                        <div class="t-body">
-                            <dl class="kv">
-                                <dt>Thesis</dt><dd>Symmetry Breaking and Quantum Localization in Periodically Driven Many-Body Systems</dd>
-                                <dt>Advisor</dt><dd>Dr. Analabha Roy</dd>
-                            </dl>
-                            <p>Developed comprehensive theoretical and computational approaches to investigate dynamical many-body localization in periodically driven long-range quantum spin systems. Utilized Floquet engineering to numerically compute the Inverse Participation Ratio, facilitating the identification of thermal and localized regimes.</p>
-                        </div>
-                    </div>
-                </div>
+  /* ---------- Light/dark switch ---------- */
+  var themeBtn = document.getElementById('theme');
+  var mqDark = window.matchMedia('(prefers-color-scheme: dark)');
+  function isDark() {
+    var th = root.getAttribute('data-theme');
+    return th ? th === 'dark' : mqDark.matches;
+  }
+  function syncThemeLabel() {
+    var label = isDark() ? 'Switch to light mode' : 'Switch to dark mode';
+    themeBtn.setAttribute('aria-label', label);
+    themeBtn.title = label;
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    syncThemeLabel();
+    onThemeChange();
+  });
+  var onScheme = function () { syncThemeLabel(); onThemeChange(); };
+  if (mqDark.addEventListener) mqDark.addEventListener('change', onScheme); else if (mqDark.addListener) mqDark.addListener(onScheme);
+  syncThemeLabel();
 
-                <div class="t-item reveal">
-                    <span class="t-dot"></span>
-                    <div class="sheet">
-                        <div class="t-head"><div class="t-title">M.Sc. in Physics</div><span class="t-badge">master's</span></div>
-                        <div class="t-body">
-                            <dl class="kv">
-                                <dt>Specialization</dt><dd>Electronics</dd>
-                                <dt>Expertise</dt><dd>Space Weather</dd>
-                                <dt>Dissertation</dt><dd>Response of Very Low Frequency (VLF) waves to solar flares of varying strengths at different times of the day</dd>
-                                <dt>Advisor</dt><dd>Dr. Sushanta K Mondal</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
+  /* ---------- Tabs (a tab whose list is empty is hidden) ---------- */
+  document.querySelectorAll('[role="tablist"]').forEach(function (list) {
+    var tabs = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]')).filter(function (t) {
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (panel && panel.querySelector('li')) return true;
+      t.hidden = true;
+      if (panel) panel.hidden = true;
+      return false;
+    });
+    if (!tabs.length) return;
+    if (tabs.length < 2) list.hidden = true;
+    function select(tab) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      });
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { select(t); });
+      t.addEventListener('keydown', function (e) {
+        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        var next = tabs[(i + d + tabs.length) % tabs.length];
+        select(next);
+        next.focus();
+      });
+    });
+    select(tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0] || tabs[0]);
+  });
 
-                <div class="t-item reveal">
-                    <span class="t-dot"></span>
-                    <div class="sheet">
-                        <div class="t-head"><div class="t-title">B.Sc. (Honors) in Physics</div><span class="t-badge">bachelor's</span></div>
-                    </div>
-                </div>
+  /* ---------- Figures ---------- */
+  if (!window.HTMLCanvasElement) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var TAU = Math.PI * 2;
+  var FONT = 'Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif';
+  var C = {};
+  function readColors() {
+    var cs = getComputedStyle(root);
+    ['bg', 'panel', 'text', 'muted', 'link', 'accent', 'rule'].forEach(function (k) {
+      C[k] = cs.getPropertyValue('--' + k).trim();
+    });
+  }
+  readColors();
 
-                <div class="t-item alt reveal">
-                    <span class="t-dot"></span>
-                    <div class="sheet">
-                        <div class="t-head"><div class="t-title">Summer School in Quantum Information &amp; Technology</div><span class="t-badge">June–July 2021</span></div>
-                        <div class="t-inst">Indian Institute of Science Education and Research Kolkata</div>
-                        <div class="t-body"><p style="margin-top:0">Intensive program focusing on quantum information theory, quantum computing algorithms, and emerging quantum technologies.</p></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  function rng(seed) {
+    return function () {
+      seed = (seed + 0x6D2B79F5) | 0;
+      var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function ease(x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+  function clamp01(x) { return Math.max(0, Math.min(1, x)); }
 
-        <!-- CONTACT -->
-        <section class="section" id="contact">
-            <div class="sheet contact reveal">
-                <svg class="enso" viewBox="0 0 200 200" aria-hidden="true"><path class="enso-path" stroke-width="12" d="M120 28 C 62 18, 22 62, 30 112 C 38 160, 96 186, 142 160 C 182 136, 184 78, 150 48"/></svg>
-                <h2>Let's write the next chapter of <em>quantum matter</em> together.</h2>
-                <p>Open to collaborations, discussions and invited talks on driven quantum matter, localization and quantum technologies.</p>
-                <div class="actions">
-                    <a class="btn solid" href="mailto:mahbub.phys@gmail.com"><i class="fas fa-feather-pointed"></i> mahbub.phys@gmail.com</a>
-                </div>
-            </div>
-        </section>
-    </main>
+  // Drawing helpers. Coordinates are in figure units; line widths are in CSS pixels.
+  function makeG(ctx, px) {
+    var G = { ctx: ctx, px: px };
+    G.stroke = function (color, w, alpha, dash) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = w * px;
+      ctx.globalAlpha = alpha == null ? 1 : alpha;
+      ctx.setLineDash(dash ? dash.map(function (v) { return v * px; }) : []);
+    };
+    G.line = function (x1, y1, x2, y2) {
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    };
+    G.dot = function (x, y, r, color, alpha) {
+      ctx.globalAlpha = alpha == null ? 1 : alpha;
+      ctx.fillStyle = color;
+      ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
+    };
+    G.ring = function (x, y, r, color, w, alpha) {
+      G.dot(x, y, r, C.panel, alpha);
+      G.stroke(color, w, alpha);
+      ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.stroke();
+    };
+    G.font = function (size, italic) {
+      ctx.font = (italic ? 'italic ' : '') + Math.max(size, 10 * px) + 'px ' + FONT;
+    };
+    G.text = function (str, x, y, o) {
+      o = o || {};
+      G.font(o.size || 12, o.italic);
+      ctx.globalAlpha = o.alpha == null ? 1 : o.alpha;
+      ctx.fillStyle = o.color || C.muted;
+      ctx.textAlign = o.align || 'left';
+      ctx.textBaseline = o.base || 'alphabetic';
+      ctx.fillText(str, x, y);
+    };
+    G.width = function (str, size, italic) {
+      G.font(size || 12, italic);
+      return ctx.measureText(str).width;
+    };
+    // Arrow centred on (x, y); ang = 0 points up, positive angles turn clockwise.
+    G.arrow = function (x, y, ang, len, color, w, alpha) {
+      var dx = Math.sin(ang), dy = -Math.cos(ang), h = len / 2, hs = Math.min(len * 0.28, 7);
+      var tx = x + dx * h, ty = y + dy * h;
+      G.stroke(color, w, alpha);
+      G.line(x - dx * h, y - dy * h, tx, ty);
+      ctx.beginPath();
+      ctx.moveTo(tx - dx * hs - dy * hs * 0.6, ty - dy * hs + dx * hs * 0.6);
+      ctx.lineTo(tx, ty);
+      ctx.lineTo(tx - dx * hs + dy * hs * 0.6, ty - dy * hs - dx * hs * 0.6);
+      ctx.stroke();
+    };
+    return G;
+  }
 
-    <footer>
-        <span>© <span id="year"></span> Mahbub Rahaman · Harish-Chandra Research Institute</span>
-        <span>Shortcuts: <kbd>Alt</kbd> + <kbd>1</kbd>–<kbd>6</kbd></span>
-    </footer>
+  var figs = [];
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.target._fig) { if (e.isIntersecting) e.target._fig.start(); else e.target._fig.stop(); }
+    });
+  }, { rootMargin: '60px' }) : null;
 
-    <button class="to-top" id="toTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+  // size(cssWidth) -> [W, H] in figure units; still = time shown when motion is reduced.
+  function figure(id, size, still, draw) {
+    var cv = document.getElementById(id);
+    if (!cv || !cv.getContext) return;
+    var ctx = cv.getContext('2d');
+    var t = reduce ? still : 0, last = 0, running = false;
+    function paint() {
+      var w = cv.clientWidth;
+      if (!w) return;
+      var d = size(w), W = d[0], H = d[1], h = w * H / W;
+      cv.style.height = h + 'px';
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+      if (cv.width !== bw || cv.height !== bh) { cv.width = bw; cv.height = bh; }
+      var s = w / W;
+      ctx.setTransform(dpr * s, 0, 0, dpr * s, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      draw(makeG(ctx, 1 / s), t, W, H);
+      ctx.globalAlpha = 1;
+      ctx.setLineDash([]);
+    }
+    function frame(now) {
+      if (!running) return;
+      if (last) t += Math.min((now - last) / 1000, 0.05);
+      last = now;
+      paint();
+      requestAnimationFrame(frame);
+    }
+    var f = {
+      paint: paint,
+      start: function () { if (reduce || running) return; running = true; last = 0; requestAnimationFrame(frame); },
+      stop: function () { running = false; }
+    };
+    cv._fig = f;
+    figs.push(f);
+    paint();
+    if (io) io.observe(cv); else f.start();
+  }
 
-    <script>
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Fig: thermalization vs. many-body localization vs. scars (schematic curves) */
+  figure('fig-therm', function (w) { return w < 480 ? [360, 240] : [640, 210]; }, 8.5, function (G, t, W, H) {
+    var ctx = G.ctx, narrow = W < 480;
+    var L = 46, R = W - (narrow ? 90 : 132), T = 16, B = H - 34;
+    var tMax = 9, run = 7.5, cyc = 10;
+    var tc = t % cyc, now = tMax * Math.min(tc / run, 1);
+    var alpha = Math.min(1, tc / 0.3, (cyc - tc) / 0.5);
+    function X(s) { return L + (R - L) * s / tMax; }
+    function Y(v) { return (T + B) / 2 - (B - T) / 2 * v; }
 
-        // Preloader
-        window.addEventListener('load', () => {
-            setTimeout(() => document.getElementById('loader').classList.add('done'), reduceMotion ? 0 : 1500);
-        });
+    G.stroke(C.rule, 1);
+    ctx.beginPath(); ctx.moveTo(L, T); ctx.lineTo(L, B); ctx.lineTo(R, B); ctx.stroke();
+    G.stroke(C.rule, 1, 1, [4, 4]);
+    G.line(L, Y(0), R, Y(0));
+    G.text('1', L - 7, Y(1), { align: 'right', base: 'middle', size: 11 });
+    G.text('0', L - 7, Y(0), { align: 'right', base: 'middle', size: 11 });
+    G.text('−1', L - 7, Y(-1), { align: 'right', base: 'middle', size: 11 });
+    G.text('time', R, B + 22, { align: 'right', italic: true });
+    ctx.save();
+    ctx.translate(15, (T + B) / 2);
+    ctx.rotate(-Math.PI / 2);
+    G.text('imbalance', 0, 0, { align: 'center', base: 'middle', italic: true });
+    ctx.restore();
 
-        // Mobile menu
-        const navLinks = document.getElementById('navLinks');
-        const menuBtn = document.getElementById('menuBtn');
-        menuBtn.addEventListener('click', () => {
-            const open = navLinks.classList.toggle('open');
-            menuBtn.querySelector('i').className = open ? 'fas fa-xmark' : 'fas fa-bars';
-        });
-        navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-            navLinks.classList.remove('open');
-            menuBtn.querySelector('i').className = 'fas fa-bars';
-        }));
+    var curves = [
+      [function (s) { return Math.exp(-s / 1.1) * Math.cos(2.4 * s) + 0.04 * Math.sin(5.3 * s) * Math.sin(1.7 * s) * (1 - Math.exp(-s)); },
+        C.muted, 'thermalizes'],
+      [function (s) { return 0.52 + 0.48 * Math.exp(-s / 0.9) * Math.cos(3.1 * s) + 0.03 * Math.sin(4.1 * s) * (1 - Math.exp(-s)); },
+        C.link, narrow ? 'MBL' : 'many-body localized'],
+      [function (s) { return Math.exp(-s / 16) * Math.cos(Math.PI * s); },
+        C.accent, narrow ? 'scars' : 'quantum scars']
+    ];
+    curves.forEach(function (c) {
+      var f = c[0];
+      G.stroke(c[1], 1.8, alpha);
+      ctx.beginPath();
+      ctx.moveTo(X(0), Y(f(0)));
+      for (var s = 0.03; s < now; s += 0.03) ctx.lineTo(X(s), Y(f(s)));
+      ctx.lineTo(X(now), Y(f(now)));
+      ctx.stroke();
+      G.dot(X(now), Y(f(now)), 3, c[1], alpha);
+      G.text(c[2], R + 10, Y(f(tMax)), { color: c[1], base: 'middle' });
+    });
+  });
 
-        // Rotating line under the name, fading like ink
-        const roles = [
-            'studying quantum matter far from equilibrium',
-            'engineering Floquet-driven spin chains',
-            'searching for discrete time crystals',
-            'tracing many-body localization',
-            'weaving tensor networks & quantum neural nets'
-        ];
-        const roleEl = document.getElementById('role');
-        let roleIdx = 0;
-        if (!reduceMotion) {
-            setInterval(() => {
-                roleEl.classList.add('fade');
-                setTimeout(() => {
-                    roleIdx = (roleIdx + 1) % roles.length;
-                    roleEl.textContent = roles[roleIdx];
-                    roleEl.classList.remove('fade');
-                }, 700);
-            }, 3800);
+  /* Fig: Floquet-driven spin on the Bloch sphere */
+  (function () {
+    var A = 1.6, HZ = 1.2, P = 2.45, BN = Math.hypot(A, HZ), TH = BN * P / 2;
+    var K1 = [A / BN, 0, HZ / BN], K2 = [-A / BN, 0, HZ / BN];
+    function rot(v, k, a) {
+      var c = Math.cos(a), s = Math.sin(a), d = (k[0] * v[0] + k[1] * v[1] + k[2] * v[2]) * (1 - c);
+      return [
+        v[0] * c + (k[1] * v[2] - k[2] * v[1]) * s + k[0] * d,
+        v[1] * c + (k[2] * v[0] - k[0] * v[2]) * s + k[1] * d,
+        v[2] * c + (k[0] * v[1] - k[1] * v[0]) * s + k[2] * d
+      ];
+    }
+    function floquet(v) { return rot(rot(v, K1, TH), K2, TH); }
+    // Floquet axis from the antisymmetric part of the one-period rotation matrix
+    var cols = [[1, 0, 0], [0, 1, 0], [0, 0, 1]].map(floquet);
+    var ax = [cols[1][2] - cols[2][1], cols[2][0] - cols[0][2], cols[0][1] - cols[1][0]];
+    var an = Math.hypot(ax[0], ax[1], ax[2]);
+    ax = ax.map(function (v) { return v / an; });
+
+    var strobe = [[0, 0, 1]];
+    function at(n) {
+      while (strobe.length <= n) {
+        var w = floquet(strobe[strobe.length - 1]), m = Math.hypot(w[0], w[1], w[2]);
+        strobe.push([w[0] / m, w[1] / m, w[2] / m]);
+      }
+      return strobe[n];
+    }
+    function S(tau) {
+      var n = Math.floor(tau / P), ph = tau - n * P, v = at(n);
+      return ph < P / 2 ? rot(v, K1, BN * ph) : rot(rot(v, K1, TH), K2, BN * (ph - P / 2));
+    }
+
+    var cp = Math.cos(0.75), sp = Math.sin(0.75), ca = Math.cos(0.38), sa = Math.sin(0.38);
+    var cx = 104, cy = 110, R = 78;
+    function pr(v) {
+      var x1 = v[0] * cp - v[1] * sp, y1 = v[0] * sp + v[1] * cp;
+      return [cx + R * x1, cy - R * (y1 * sa + v[2] * ca), -y1 * ca + v[2] * sa];
+    }
+    function scale(v, k) { return [v[0] * k, v[1] * k, v[2] * k]; }
+
+    figure('fig-floquet', function () { return [320, 210]; }, 60, function (G, t) {
+      var ctx = G.ctx, tau = t * 0.9, i, p;
+
+      G.stroke(C.rule, 1);
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.stroke();
+      [false, true].forEach(function (front) {
+        G.stroke(C.rule, 1, 1, front ? null : [3, 4]);
+        ctx.beginPath();
+        var pen = false;
+        for (var k = 0; k <= 96; k++) {
+          var q = pr([Math.cos(k / 96 * TAU), Math.sin(k / 96 * TAU), 0]);
+          if ((q[2] >= 0) === front) {
+            if (pen) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]);
+            pen = true;
+          } else pen = false;
         }
+        ctx.stroke();
+      });
+      var north = pr([0, 0, 1]), south = pr([0, 0, -1]);
+      G.stroke(C.rule, 1, 1, [2, 3]);
+      G.line(south[0], south[1], north[0], north[1]);
+      G.text('|↑⟩', north[0], north[1] - 6, { align: 'center', size: 11 });
+      G.text('|↓⟩', south[0], south[1] + 16, { align: 'center', size: 11 });
 
-        // Scroll: progress brush, nav state, back-to-top, timeline, scroll-spy
-        const nav = document.getElementById('nav');
-        const progress = document.getElementById('scrollProgress');
-        const toTop = document.getElementById('toTop');
-        const timeline = document.getElementById('timeline');
-        const timelineProgress = document.getElementById('timelineProgress');
-        const sectionIds = ['about', 'news', 'research', 'publications', 'skills', 'education'];
-        const linkFor = Object.fromEntries(sectionIds.map(id => [id, navLinks.querySelector(`a[href="#${id}"]`)]));
+      // Floquet axis
+      var a1 = pr(scale(ax, 1.18)), a2 = pr(scale(ax, -1.18));
+      G.stroke(C.accent, 1, 0.75, [5, 4]);
+      G.line(a2[0], a2[1], a1[0], a1[1]);
 
-        function onScroll() {
-            const y = window.scrollY;
-            const max = document.documentElement.scrollHeight - window.innerHeight;
-            progress.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
-            nav.classList.toggle('scrolled', y > 20);
-            toTop.classList.toggle('show', y > 600);
+      // Field direction during the current half period
+      var Bdir = (tau % P) < P / 2 ? K1 : K2, bp = pr(scale(Bdir, 0.5));
+      G.stroke(C.muted, 1.2, 0.8);
+      G.line(cx, cy, bp[0], bp[1]);
+      var bl = pr(scale(Bdir, 0.64));
+      G.text('B', bl[0], bl[1], { align: 'center', base: 'middle', italic: true, size: 11 });
 
-            const tr = timeline.getBoundingClientRect();
-            const filled = Math.min(Math.max((window.innerHeight * 0.6 - tr.top) / tr.height, 0), 1);
-            timelineProgress.style.height = (filled * (tr.height - 20)) + 'px';
+      // Trail over the last 1.6 periods, fainter on the far side of the sphere
+      var N = 220, span = P * 1.6, prev = pr(S(Math.max(0, tau - span)));
+      for (i = 1; i <= N; i++) {
+        p = pr(S(Math.max(0, tau - span + span * i / N)));
+        G.stroke(C.link, 1.5, (i / N) * (p[2] >= 0 ? 0.9 : 0.3));
+        G.line(prev[0], prev[1], p[0], p[1]);
+        prev = p;
+      }
 
-            let current = null;
-            for (const id of sectionIds) {
-                if (document.getElementById(id).getBoundingClientRect().top <= window.innerHeight * 0.35) current = id;
-            }
-            sectionIds.forEach(id => linkFor[id].classList.toggle('active', id === current));
-        }
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-        toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      // Stroboscopic points
+      var nNow = Math.floor(tau / P);
+      for (i = Math.max(0, nNow - 45); i <= nNow; i++) {
+        p = pr(at(i));
+        G.dot(p[0], p[1], i === nNow ? 3.4 : 2.3, C.accent, p[2] >= 0 ? 1 : 0.4);
+      }
 
-        // Reveal on scroll (ink bleeds in from blur)
-        const revealObs = new IntersectionObserver(entries => {
-            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); } });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-        document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+      p = pr(S(tau));
+      G.stroke(C.text, 1.6);
+      G.line(cx, cy, p[0], p[1]);
+      G.dot(p[0], p[1], 3.6, C.link);
 
-        // Animated counters
-        const countObs = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-                if (!e.isIntersecting) return;
-                const el = e.target, target = +el.dataset.count, suffix = el.dataset.suffix || '';
-                const start = target > 100 ? target - 30 : 0, dur = 1600, t0 = performance.now();
-                (function step(now) {
-                    const p = Math.min((now - t0) / dur, 1), eased = 1 - Math.pow(1 - p, 3);
-                    el.textContent = Math.round(start + (target - start) * eased) + (p === 1 ? suffix : '');
-                    if (p < 1) requestAnimationFrame(step);
-                })(t0);
-                countObs.unobserve(el);
-            });
-        }, { threshold: 0.6 });
-        document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
+      // Drive h_x(t) with the sampling times
+      var xl = 206, xr = 306, xn = 282, k = (xn - xl) / (1.6 * P), yc = 112, amp = 20;
+      function hx(tt) { return ((tt % P) + P) % P < P / 2 ? 1 : -1; }
+      G.text('drive', xl, yc - amp - 14, { italic: true, size: 11 });
+      G.stroke(C.rule, 1);
+      G.line(xl, yc, xr, yc);
+      G.stroke(C.muted, 1.4);
+      ctx.beginPath();
+      for (var x = xl; x <= xr; x += 0.5) {
+        var y = yc - amp * hx(tau + (x - xn) / k);
+        if (x === xl) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      for (i = Math.floor((tau - (xn - xl) / k) / P); i * P <= tau + (xr - xn) / k; i++) {
+        var sx = xn + (i * P - tau) * k;
+        if (sx >= xl && sx <= xr) G.dot(sx, yc, 2.6, C.accent);
+      }
+      G.stroke(C.text, 1, 0.45, [2, 3]);
+      G.line(xn, yc - amp - 6, xn, yc + amp + 6);
+      G.text('t', xr, yc + amp + 18, { align: 'right', italic: true, size: 11 });
+    });
+  })();
 
-        // News year tabs
-        document.querySelectorAll('.news-tab').forEach(tab => tab.addEventListener('click', () => {
-            document.querySelectorAll('.news-tab').forEach(t => t.classList.toggle('active', t === tab));
-            document.querySelectorAll('.news-item').forEach(item => {
-                const show = item.dataset.year === tab.dataset.year;
-                item.classList.toggle('hidden', !show);
-                if (show) item.classList.add('in');
-            });
-        }));
+  /* Fig: discrete time crystal */
+  figure('fig-dtc', function () { return [320, 210]; }, 1.5 * 17.5, function (G, t) {
+    var ctx = G.ctx, P = 1.5, NS = 10, NM = 16, cyc = 20, pw = 0.3;
+    var tt = t % (cyc * P), n = Math.floor(tt / P), ph = (tt - n * P) / P;
+    var pulse = ph < pw ? ease(ph / pw) : 1;
+    function jit(i, m) { return m % cyc === 0 ? 0 : (rng(m * 131 + i * 17 + 5)() - 0.5) * 0.35; }
 
-        // Publication filters
-        document.querySelectorAll('.filter').forEach(btn => btn.addEventListener('click', () => {
-            document.querySelectorAll('.filter').forEach(b => b.classList.toggle('active', b === btn));
-            const f = btn.dataset.filter;
-            document.querySelectorAll('.pub').forEach(p => {
-                const show = f === 'all' || p.dataset.type === f;
-                p.classList.toggle('hidden', !show);
-                if (show) p.classList.add('in');
-            });
-        }));
+    // Chain
+    var y0 = 60, x0 = 34, dx = 28, i;
+    G.stroke(C.rule, 1);
+    G.line(x0 - 12, y0, x0 + dx * (NS - 1) + 12, y0);
+    if (ph < pw) G.text('π(1−ε) pulse', 160, 22, { align: 'center', color: C.accent, alpha: Math.sin(Math.PI * ph / pw), italic: true });
+    for (i = 0; i < NS; i++) {
+      var ja = jit(i, n), jb = jit(i, n + 1);
+      G.arrow(x0 + dx * i, y0, Math.PI * (n + pulse) + ja + (jb - ja) * pulse, 30, C.text, 1.7);
+      G.dot(x0 + dx * i, y0, 2.2, C.text);
+    }
 
-        // Duplicate marquee content for a seamless loop
-        const track = document.getElementById('marqueeTrack');
-        track.innerHTML += track.innerHTML;
+    // Stroboscopic magnetization
+    var L = 34, R = 300, T = 108, B = 186, yc = (T + B) / 2, amp = (B - T) / 2;
+    function X(m) { return L + (R - L) * m / NM; }
+    function Y(v) { return yc - amp * v; }
+    var done = Math.min(n + (ph >= pw ? 1 : 0), NM);
+    var fade = clamp01((cyc - tt / P) / 2);
+    G.stroke(C.rule, 1, 1, [3, 4]);
+    G.line(L, yc, R, yc);
+    G.stroke(C.rule, 1);
+    G.line(L, T, L, B);
+    ctx.save();
+    ctx.translate(14, yc);
+    ctx.rotate(-Math.PI / 2);
+    G.text('magnetization', 0, 0, { align: 'center', base: 'middle', italic: true, size: 11 });
+    ctx.restore();
+    G.text('periods', R, B + 18, { align: 'right', italic: true, size: 11 });
 
-        // Keyboard shortcuts
-        document.addEventListener('keydown', e => {
-            if (e.altKey && e.key >= '1' && e.key <= '6') {
-                e.preventDefault();
-                document.getElementById(sectionIds[+e.key - 1]).scrollIntoView({ behavior: 'smooth' });
-            }
-        });
+    var w2 = G.width('non-interacting', 11), w1 = G.width('interacting', 11), lx = R - w2;
+    G.text('non-interacting', lx, T - 10, { size: 11, base: 'middle' });
+    G.ring(lx - 8, T - 10, 2.6, C.muted, 1.3);
+    lx -= 22 + w1;
+    G.text('interacting', lx, T - 10, { size: 11, base: 'middle', color: C.link });
+    G.dot(lx - 8, T - 10, 2.8, C.link);
 
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+    var series = [
+      [function (m) { return Math.pow(-1, m) * Math.cos(Math.PI * m / NM); }, C.muted, true],
+      [function (m) { return Math.pow(-1, m) * (0.9 + 0.06 * (rng(m * 7 + 3)() - 0.5)); }, C.link, false]
+    ];
+    series.forEach(function (sr) {
+      var f = sr[0], m;
+      G.stroke(sr[1], 1, 0.5 * fade, sr[2] ? [2, 3] : null);
+      ctx.beginPath();
+      for (m = 0; m <= done; m++) { if (m) ctx.lineTo(X(m), Y(f(m))); else ctx.moveTo(X(m), Y(f(m))); }
+      ctx.stroke();
+      for (m = 0; m <= done; m++) {
+        if (sr[2]) G.ring(X(m), Y(f(m)), 2.6, sr[1], 1.3, fade);
+        else G.dot(X(m), Y(f(m)), 2.8, sr[1], fade);
+      }
+    });
+  });
+
+  /* Fig: kicked spin chain -> quantum circuit -> measured signal */
+  figure('fig-qc', function (w) { return w < 560 ? [480, 600] : [860, 270]; }, 1.6 * 13.5, function (G, t, W) {
+    var ctx = G.ctx, wide = W > 700;
+    var P = 1.6, NQ = 6, NMAX = 12, cyc = 15;
+    var tt = t % (cyc * P), n = Math.floor(tt / P), ph = (tt - n * P) / P;
+    var running = n < NMAX;
+    var k = running ? n + (ph >= 0.85 ? 1 : 0) : NMAX;        // completed periods
+    var fade = clamp01((cyc - tt / P) / 1.5);
+    var spinAng = Math.PI * ((running ? n : NMAX) + (running ? ease(clamp01((ph - 0.08) / 0.22)) : 0));
+
+    function arrowTo(x1, y1, x2, y2, label, lx, ly) {
+      var a = Math.atan2(y2 - y1, x2 - x1), hs = 6;
+      G.stroke(C.muted, 1.3);
+      G.line(x1, y1, x2, y2);
+      ctx.beginPath();
+      ctx.moveTo(x2 - hs * Math.cos(a - 0.45), y2 - hs * Math.sin(a - 0.45));
+      ctx.lineTo(x2, y2);
+      ctx.lineTo(x2 - hs * Math.cos(a + 0.45), y2 - hs * Math.sin(a + 0.45));
+      ctx.stroke();
+      G.text(label, lx, ly, { align: 'center', size: 11, italic: true });
+    }
+
+    function chain(cx, cy) {
+      var x0 = cx - 75, i, z;
+      G.text('spin chain', cx, cy - 46, { align: 'center', italic: true });
+      for (i = 0; i < NQ - 1; i++) {                          // springs: Ising couplings
+        var xa = x0 + 30 * i + 7, xb = x0 + 30 * (i + 1) - 7;
+        G.stroke(C.muted, 1);
+        ctx.beginPath();
+        ctx.moveTo(xa, cy);
+        for (z = 1; z <= 5; z++) ctx.lineTo(xa + (xb - xa) * z / 6, cy + (z % 2 ? -3 : 3));
+        ctx.lineTo(xb, cy);
+        ctx.stroke();
+      }
+      for (i = 0; i < NQ; i++) {
+        G.arrow(x0 + 30 * i, cy, spinAng, 28, C.text, 1.7);
+        G.dot(x0 + 30 * i, cy, 2.2, C.text);
+      }
+      G.text('Ising coupling J', cx, cy + 42, { align: 'center', size: 11 });
+      G.text('π(1−ε) kick every period T', cx, cy + 58, { align: 'center', size: 11 });
+    }
+
+    function circuit(bx, by) {
+      var i, y;
+      function wy(q) { return by + 32 + 28 * q; }
+      var xs = bx + 30, mx = bx + 340, lx0 = bx + 62, lx1 = bx + 252;
+      var cols = [bx + 92, bx + 152, bx + 212];
+      var cur = lx0 + (lx1 - lx0) * clamp01(ph / 0.8), sweeping = running && ph < 0.8;
+
+      for (i = 0; i < NQ; i++) {
+        G.stroke(C.muted, 1);
+        G.line(xs, wy(i), mx - 12, wy(i));
+        G.text('q' + (i + 1), bx + 2, wy(i), { base: 'middle', size: 11, italic: true });
+      }
+      G.stroke(C.muted, 1, 0.8, [4, 3]);
+      ctx.strokeRect(lx0, wy(0) - 20, lx1 - lx0, wy(NQ - 1) - wy(0) + 40);
+      G.text('one drive period', (lx0 + lx1) / 2, wy(0) - 26, { align: 'center', size: 11, italic: true });
+      G.text('kick', cols[0], wy(NQ - 1) + 34, { align: 'center', size: 11 });
+      G.text('interactions', (cols[1] + cols[2]) / 2, wy(NQ - 1) + 34, { align: 'center', size: 11 });
+
+      function gate(x, q0, q1, label) {
+        var lit = sweeping && Math.abs(cur - x) < 13, y0 = wy(q0) - 10, y1 = wy(q1) + 10;
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = lit ? C.accent : C.panel;
+        ctx.fillRect(x - 12, y0, 24, y1 - y0);
+        G.stroke(lit ? C.accent : C.text, 1.2);
+        ctx.strokeRect(x - 12, y0, 24, y1 - y0);
+        G.text(label, x, (y0 + y1) / 2, { align: 'center', base: 'middle', size: 10, color: lit ? C.panel : C.text });
+      }
+      for (i = 0; i < NQ; i++) gate(cols[0], i, i, 'Rx');
+      for (i = 0; i + 1 < NQ; i += 2) gate(cols[1], i, i + 1, 'ZZ');
+      for (i = 1; i + 1 < NQ; i += 2) gate(cols[2], i, i + 1, 'ZZ');
+      if (sweeping) {
+        G.stroke(C.accent, 1.5, 0.8);
+        G.line(cur, wy(0) - 18, cur, wy(NQ - 1) + 18);
+      }
+
+      var cn = (lx1 + mx - 12) / 2, mid = (wy(2) + wy(3)) / 2;
+      G.text('× n', cn, mid - 9, { align: 'center', base: 'middle', size: 15, color: C.text });
+      G.text('n = ' + k, cn, mid + 12, { align: 'center', base: 'middle', size: 11, color: C.accent });
+
+      var reading = running && ph >= 0.8;
+      for (i = 0; i < NQ; i++) {
+        y = wy(i);
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = C.panel;
+        ctx.fillRect(mx - 12, y - 10, 24, 20);
+        G.stroke(reading ? C.accent : C.text, 1.2);
+        ctx.strokeRect(mx - 12, y - 10, 24, 20);
+        ctx.beginPath(); ctx.arc(mx, y + 5, 7, Math.PI, 2 * Math.PI); ctx.stroke();
+        G.line(mx, y + 5, mx + 5, y - 4);
+      }
+    }
+
+    function plot(L, R, T, B) {
+      var yc = (T + B) / 2, amp = (B - T) / 2, m, s;
+      function X(v) { return L + (R - L) * v / NMAX; }
+      function Y(v) { return yc - amp * v; }
+      function env(v) { return 0.95 * Math.exp(-v / 16); }
+      function val(v) { return Math.pow(-1, v) * (env(v) + 0.03 * (rng(v * 13 + 7)() - 0.5)); }
+      G.text('measured magnetization', (L + R) / 2, T - 12, { align: 'center', italic: true });
+      G.stroke(C.rule, 1, 1, [3, 4]);
+      G.line(L, yc, R, yc);
+      G.stroke(C.rule, 1);
+      G.line(L, T, L, B);
+      G.text('1', L - 6, Y(1), { align: 'right', base: 'middle', size: 10 });
+      G.text('−1', L - 6, Y(-1), { align: 'right', base: 'middle', size: 10 });
+      G.text('periods n', R, B + 16, { align: 'right', italic: true, size: 11 });
+      [1, -1].forEach(function (sg) {                          // decay from hardware noise
+        G.stroke(C.muted, 1, 0.45, [2, 3]);
+        ctx.beginPath();
+        for (s = 0; s <= NMAX; s += 0.25) { if (s) ctx.lineTo(X(s), Y(sg * env(s))); else ctx.moveTo(X(s), Y(sg * env(s))); }
+        ctx.stroke();
+      });
+      G.stroke(C.link, 1, 0.5 * fade);
+      ctx.beginPath();
+      for (m = 0; m <= k; m++) { if (m) ctx.lineTo(X(m), Y(val(m))); else ctx.moveTo(X(m), Y(val(m))); }
+      ctx.stroke();
+      for (m = 0; m <= k; m++) G.dot(X(m), Y(val(m)), 2.8, C.link, fade);
+    }
+
+    if (wide) {
+      chain(100, 140);
+      arrowTo(190, 140, 222, 140, 'qubits', 206, 130);
+      circuit(228, 38);
+      arrowTo(594, 140, 626, 140, 'readout', 610, 130);
+      plot(664, 845, 62, 222);
+    } else {
+      chain(240, 78);
+      arrowTo(240, 150, 240, 178, 'qubits', 272, 168);
+      circuit(64, 196);
+      arrowTo(240, 414, 240, 442, 'readout', 278, 432);
+      plot(70, 440, 476, 576);
+    }
+  });
+
+  /* Fig: Ramsey sensing with independent vs. entangled probes */
+  figure('fig-sense', function () { return [320, 210]; }, 1.92, function (G, t) {
+    var ctx = G.ctx, cyc = 4, run = 3.2, N = 4;
+    var tc = t % cyc, prog = Math.min(tc / run, 1), sweeping = tc < run;
+    var fade = Math.min(1, tc / 0.25, (cyc - tc) / 0.4);
+    var wy = 40, x0 = 16, x1 = 300, g1 = 46, g2 = 228, mx = 286;
+    var cur = x0 + (x1 - x0) * prog;
+    var phi = 1.25 * Math.PI * clamp01((cur - (g1 + 16)) / ((g2 - 16) - (g1 + 16)));
+
+    // Ramsey sequence: pi/2 - free evolution in the field - pi/2 - measure
+    G.stroke(C.muted, 1);
+    G.line(x0, wy, mx - 12, wy);
+    G.text('free evolution: φ = ωt', (g1 + g2) / 2, wy - 12, { align: 'center', size: 11, italic: true });
+    [g1, g2].forEach(function (gx) {
+      var lit = sweeping && Math.abs(cur - gx) < 16;
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = lit ? C.accent : C.panel;
+      ctx.fillRect(gx - 16, wy - 11, 32, 22);
+      G.stroke(lit ? C.accent : C.text, 1.2);
+      ctx.strokeRect(gx - 16, wy - 11, 32, 22);
+      G.text('π/2', gx, wy, { align: 'center', base: 'middle', size: 10, color: lit ? C.panel : C.text });
+    });
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = C.panel;
+    ctx.fillRect(mx - 12, wy - 10, 24, 20);
+    G.stroke(sweeping && cur > mx - 14 ? C.accent : C.text, 1.2);
+    ctx.strokeRect(mx - 12, wy - 10, 24, 20);
+    ctx.beginPath(); ctx.arc(mx, wy + 5, 7, Math.PI, 2 * Math.PI); ctx.stroke();
+    G.line(mx, wy + 5, mx + 5, wy - 4);
+    if (sweeping) {
+      G.stroke(C.accent, 1.5, 0.8);
+      G.line(cur, wy - 16, cur, wy + 16);
+    }
+
+    // Phase dial: one spin turns by phi, an N-spin GHZ state by N phi
+    var dx = 66, dy = 128, r = 34;
+    G.text('phase', dx, dy - r - 10, { align: 'center', size: 11, italic: true });
+    G.stroke(C.rule, 1);
+    ctx.beginPath(); ctx.arc(dx, dy, r, 0, TAU); ctx.stroke();
+    G.stroke(C.rule, 1, 1, [2, 3]);
+    G.line(dx - r, dy, dx + r, dy);
+    G.line(dx, dy - r, dx, dy + r);
+    function phasor(a, col, w) {
+      var tx = dx + (r - 3) * Math.cos(a), ty = dy - (r - 3) * Math.sin(a), hs = 6;
+      G.stroke(col, w, fade);
+      G.line(dx, dy, tx, ty);
+      ctx.beginPath();
+      ctx.moveTo(tx - hs * Math.cos(a - 0.45), ty + hs * Math.sin(a - 0.45));
+      ctx.lineTo(tx, ty);
+      ctx.lineTo(tx - hs * Math.cos(a + 0.45), ty + hs * Math.sin(a + 0.45));
+      ctx.stroke();
+    }
+    phasor(phi, C.muted, 1.6);
+    phasor(N * phi, C.link, 2);
+    G.dot(dx, dy, 2.2, C.text);
+    G.stroke(C.muted, 2);
+    G.line(18, 186, 32, 186);
+    G.text('one spin: φ', 37, 186, { base: 'middle', size: 11 });
+    G.stroke(C.link, 2);
+    G.line(18, 201, 32, 201);
+    G.text('GHZ, N = 4: Nφ', 37, 201, { base: 'middle', size: 11, color: C.link });
+
+    // Uncertainty vs. number of probes (log-log): SQL 1/sqrt(N), Heisenberg 1/N
+    var L = 180, R = 302, T = 84, B = 172;
+    function X(lg) { return L + (R - L) * lg / 2; }
+    function Y(lg) { return T - (B - T) * lg / 2; }
+    G.stroke(C.rule, 1);
+    ctx.beginPath(); ctx.moveTo(L, T - 6); ctx.lineTo(L, B); ctx.lineTo(R, B); ctx.stroke();
+    G.text('uncertainty Δω', L, T - 14, { size: 11, italic: true });
+    G.text('N', R, B + 15, { align: 'right', size: 11, italic: true });
+    G.text('1', L, B + 15, { align: 'center', size: 10 });
+    G.stroke(C.muted, 1.6);
+    G.line(X(0), Y(0), X(2), Y(-1));
+    G.stroke(C.link, 1.8);
+    G.line(X(0), Y(0), X(2), Y(-2));
+    G.text('SQL 1/√N', X(0.6), Y(-0.3) - 8, { size: 11 });
+    G.text('Heisenberg 1/N', L + 6, B - 6, { size: 11, color: C.link });
+    var u = (t % 3) / 3;
+    G.dot(X(2 * u), Y(-u), 3, C.muted);
+    G.dot(X(2 * u), Y(-2 * u), 3, C.link);
+  });
+
+  function repaintAll() { figs.forEach(function (f) { f.paint(); }); }
+  onThemeChange = function () { readColors(); repaintAll(); };
+  window.addEventListener('resize', repaintAll);
+})();
+</script>
 </body>
 </html>
